@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Zatiki Labs</title>
+  <meta name="description" content="Zatiki Labs crea productos digitales con foco en IA aplicada, automatización y ejecución técnica fiable.">
+  <style>
+    :root {
+      --bg: #0b1220;
+      --bg-soft: #111a2b;
+      --card: #162238;
+      --tx: #e9eef8;
+      --muted: #a7b5cf;
+      --brand: #5da4ff;
+      --brand-2: #4f7fff;
+      --ok: #38b38a;
+      --line: #2a3a59;
+      --max: 1120px;
+      --radius: 16px;
+      --shadow: 0 18px 45px rgba(0, 0, 0, 0.35);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+      color: var(--tx);
+      background:
+        radial-gradient(900px 500px at 80% -10%, #1d3660 0%, transparent 60%),
+        radial-gradient(700px 420px at -10% 30%, #193457 0%, transparent 50%),
+        var(--bg);
+      line-height: 1.5;
+    }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(var(--max), 92vw); margin: 0 auto; }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(10px);
+      background: rgba(11, 18, 32, 0.72);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 72px;
+    }
+    .logo {
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      display: inline-flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .logo-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--brand), var(--ok));
+      box-shadow: 0 0 16px rgba(93, 164, 255, 0.8);
+    }
+    .nav-links { display: flex; gap: 26px; color: var(--muted); font-size: 0.95rem; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 18px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      font-weight: 600;
+      transition: 160ms ease;
+    }
+    .btn-primary {
+      background: linear-gradient(140deg, var(--brand), var(--brand-2));
+      color: white;
+      box-shadow: 0 8px 20px rgba(79, 127, 255, 0.35);
+    }
+    .btn-primary:hover { transform: translateY(-1px); filter: brightness(1.05); }
+    .btn-ghost {
+      border-color: var(--line);
+      color: var(--tx);
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .hero {
+      padding: 74px 0 48px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 42px;
+      align-items: center;
+    }
+    h1 {
+      font-size: clamp(2.1rem, 4.2vw, 3.3rem);
+      line-height: 1.1;
+      margin: 0 0 18px;
+      letter-spacing: -0.02em;
+    }
+    .lead {
+      color: var(--muted);
+      margin: 0 0 28px;
+      max-width: 58ch;
+    }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .kpis {
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .kpi {
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 12px;
+      padding: 12px;
+    }
+    .kpi strong { display: block; font-size: 1.2rem; margin-bottom: 2px; }
+    .kpi span { color: var(--muted); font-size: 0.88rem; }
+    .hero-card {
+      background: linear-gradient(170deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+    .hero-card h3 { margin: 0 0 10px; font-size: 1.1rem; }
+    .hero-card p { margin: 0; color: var(--muted); }
+    .stack {
+      margin-top: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .chip {
+      border: 1px solid var(--line);
+      background: var(--bg-soft);
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 0.82rem;
+    }
+    section { padding: 40px 0; }
+    .section-title {
+      margin: 0 0 8px;
+      font-size: clamp(1.4rem, 2.1vw, 1.9rem);
+      letter-spacing: -0.01em;
+    }
+    .section-sub { margin: 0 0 22px; color: var(--muted); }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 18px;
+    }
+    .card h4 { margin: 0 0 10px; }
+    .card p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+    .cta {
+      margin: 28px 0 16px;
+      border: 1px solid var(--line);
+      background: linear-gradient(160deg, rgba(93, 164, 255, 0.11), rgba(56, 179, 138, 0.08));
+      border-radius: var(--radius);
+      padding: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+    footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--muted);
+      padding: 24px 0 36px;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 980px) {
+      .hero { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 700px) {
+      .nav-links { display: none; }
+      .kpis { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: 1fr; }
+      .hero { padding-top: 56px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <a class="logo" href="#">
+        <span class="logo-dot" aria-hidden="true"></span>
+        <span>Zatiki Labs</span>
+      </a>
+      <nav class="nav-links" aria-label="Principal">
+        <a href="#servicios">Servicios</a>
+        <a href="#enfoque">Enfoque</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+      <a class="btn btn-primary" href="#contacto">Hablemos</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="wrap hero">
+      <div>
+        <h1>Ingeniería digital con IA para equipos que quieren ejecutar más rápido.</h1>
+        <p class="lead">
+          Diseñamos y construimos productos web, automatizaciones y herramientas internas con foco en calidad técnica,
+          mantenibilidad y valor real de negocio.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#contacto">Solicitar reunión</a>
+          <a class="btn btn-ghost" href="#servicios">Ver capacidades</a>
+        </div>
+        <div class="kpis">
+          <div class="kpi"><strong>+30</strong><span>proyectos entregados</span></div>
+          <div class="kpi"><strong>95%</strong><span>clientes recurrentes</span></div>
+          <div class="kpi"><strong>24/7</strong><span>monitorización operativa</span></div>
+        </div>
+      </div>
+      <aside class="hero-card" aria-label="Resumen">
+        <h3>Qué hacemos en la práctica</h3>
+        <p>
+          Desde landing pages corporativas hasta plataformas internas con IA aplicada, integraciones y despliegue continuo.
+        </p>
+        <div class="stack">
+          <span class="chip">Web estática y dinámica</span>
+          <span class="chip">Automatización de procesos</span>
+          <span class="chip">Integración de APIs</span>
+          <span class="chip">Infraestructura y CI/CD</span>
+          <span class="chip">Analítica de producto</span>
+        </div>
+      </aside>
+    </section>
+
+    <section id="servicios" class="wrap">
+      <h2 class="section-title">Servicios</h2>
+      <p class="section-sub">Capacidades enfocadas a negocio, producto y operación técnica.</p>
+      <div class="grid">
+        <article class="card">
+          <h4>Desarrollo web empresarial</h4>
+          <p>Webs corporativas, portales de cliente y herramientas internas con experiencia fluida y alto rendimiento.</p>
+        </article>
+        <article class="card">
+          <h4>IA aplicada</h4>
+          <p>Asistentes, clasificación de datos, workflows inteligentes y uso responsable de modelos en producción.</p>
+        </article>
+        <article class="card">
+          <h4>Automatización operativa</h4>
+          <p>Reducimos tareas manuales con integraciones y procesos reproducibles, auditables y escalables.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="enfoque" class="wrap">
+      <h2 class="section-title">Enfoque de trabajo</h2>
+      <p class="section-sub">Claridad, ejecución incremental y métricas desde el primer día.</p>
+      <div class="grid">
+        <article class="card">
+          <h4>1. Diagnóstico</h4>
+          <p>Entendemos objetivos, restricciones y contexto técnico para priorizar lo que más impacto tiene.</p>
+        </article>
+        <article class="card">
+          <h4>2. Entrega iterativa</h4>
+          <p>Iteraciones cortas con feedback continuo para acelerar valor sin comprometer calidad.</p>
+        </article>
+        <article class="card">
+          <h4>3. Escalado seguro</h4>
+          <p>Buenas prácticas de despliegue, observabilidad y documentación para mantener el ritmo de evolución.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="contacto" class="wrap">
+      <div class="cta">
+        <div>
+          <h2 class="section-title" style="margin-bottom:6px;">Construyamos tu próxima web</h2>
+          <p class="section-sub" style="margin:0;">Cuéntanos tu idea y preparamos una propuesta técnica y de ejecución.</p>
+        </div>
+        <a class="btn btn-primary" href="mailto:contacto@zatikilabs.com">contacto@zatikilabs.com</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">© <span id="year"></span> Zatiki Labs. Tecnología con propósito.</div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = String(new Date().getFullYear());
+  </script>
+</body>
+</html>

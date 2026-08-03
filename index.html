@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" data-theme="luminous">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,7 +7,7 @@
   <meta name="description" content="Zatiki Labs crea productos digitales con foco en IA aplicada, automatización y ejecución técnica fiable.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@9..144,500;9..144,700;9..144,800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@9..144,500;9..144,700;9..144,800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Space+Grotesk:wght@500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
   <style>
     @layer reset, tokens, base, layout, components, utilities;
 
@@ -18,9 +18,9 @@
         initial-value: 0deg;
       }
 
-      :root {
+      :root,
+      [data-theme="luminous"] {
         color-scheme: light;
-
         --bg: oklch(98.5% 0.008 85);
         --bg-soft: oklch(96% 0.012 85);
         --surface: oklch(100% 0 0);
@@ -32,11 +32,151 @@
         --line: oklch(88% 0.02 265);
         --shadow: 0 20px 50px oklch(30% 0.04 265 / 0.08);
         --shadow-lg: 0 32px 80px oklch(30% 0.06 265 / 0.12);
-        --max: 1120px;
         --radius: 18px;
-        --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+        --font-display: "Fraunces", Georgia, serif;
         --font-body: "Instrument Sans", system-ui, sans-serif;
+        --bg-glow-1: oklch(88% 0.08 255 / 0.45);
+        --bg-glow-2: oklch(90% 0.06 165 / 0.35);
+        --card-overlay: linear-gradient(145deg, oklch(58% 0.18 255 / 0.06), oklch(62% 0.14 165 / 0.04));
+        --product-glow: oklch(58% 0.18 255 / 0.08);
+        --badge-bg: oklch(58% 0.18 255 / 0.1);
+        --badge-border: oklch(58% 0.18 255 / 0.2);
+        --cta-bg: linear-gradient(135deg, oklch(58% 0.18 255 / 0.08), oklch(62% 0.14 165 / 0.06));
+        --btn-shadow: oklch(52% 0.22 285 / 0.28);
+        --btn-shadow-hover: oklch(52% 0.22 285 / 0.35);
+        --logo-glow: oklch(58% 0.18 255 / 0.5);
+        --heading-gradient: linear-gradient(135deg, var(--tx) 30%, var(--brand) 100%);
+        --btn-text: white;
+        --header-bg: color-mix(in oklch, var(--surface) 82%, transparent);
         --glow-angle: 0deg;
+      }
+
+      [data-theme="midnight"] {
+        color-scheme: dark;
+        --bg: oklch(14% 0.02 265);
+        --bg-soft: oklch(18% 0.025 265);
+        --surface: oklch(20% 0.03 265);
+        --tx: oklch(96% 0.01 265);
+        --muted: oklch(68% 0.03 265);
+        --brand: oklch(72% 0.14 255);
+        --brand-2: oklch(65% 0.18 285);
+        --accent: oklch(75% 0.12 165);
+        --line: oklch(30% 0.03 265);
+        --shadow: 0 20px 50px oklch(0% 0 0 / 0.4);
+        --shadow-lg: 0 32px 80px oklch(0% 0 0 / 0.55);
+        --radius: 12px;
+        --font-display: "DM Sans", system-ui, sans-serif;
+        --font-body: "DM Sans", system-ui, sans-serif;
+        --bg-glow-1: oklch(35% 0.12 255 / 0.35);
+        --bg-glow-2: oklch(28% 0.08 285 / 0.25);
+        --card-overlay: linear-gradient(145deg, oklch(72% 0.14 255 / 0.08), oklch(75% 0.12 165 / 0.05));
+        --product-glow: oklch(72% 0.14 255 / 0.12);
+        --badge-bg: oklch(72% 0.14 255 / 0.15);
+        --badge-border: oklch(72% 0.14 255 / 0.3);
+        --cta-bg: linear-gradient(135deg, oklch(72% 0.14 255 / 0.12), oklch(75% 0.12 165 / 0.08));
+        --btn-shadow: oklch(65% 0.18 285 / 0.35);
+        --btn-shadow-hover: oklch(65% 0.18 285 / 0.5);
+        --logo-glow: oklch(72% 0.14 255 / 0.7);
+        --heading-gradient: linear-gradient(135deg, var(--tx) 20%, var(--brand) 100%);
+        --btn-text: oklch(14% 0.02 265);
+        --header-bg: color-mix(in oklch, var(--bg) 75%, transparent);
+      }
+
+      [data-theme="editorial"] {
+        color-scheme: light;
+        --bg: oklch(97.5% 0.01 75);
+        --bg-soft: oklch(95% 0.015 75);
+        --surface: oklch(99% 0.005 75);
+        --tx: oklch(18% 0.02 30);
+        --muted: oklch(42% 0.03 30);
+        --brand: oklch(38% 0.14 25);
+        --brand-2: oklch(32% 0.12 20);
+        --accent: oklch(55% 0.1 75);
+        --line: oklch(86% 0.02 75);
+        --shadow: 0 16px 40px oklch(25% 0.04 30 / 0.07);
+        --shadow-lg: 0 28px 64px oklch(25% 0.05 30 / 0.1);
+        --radius: 6px;
+        --font-display: "Playfair Display", Georgia, serif;
+        --font-body: "Source Serif 4", Georgia, serif;
+        --bg-glow-1: oklch(88% 0.04 75 / 0.3);
+        --bg-glow-2: oklch(85% 0.06 25 / 0.15);
+        --card-overlay: linear-gradient(145deg, oklch(38% 0.14 25 / 0.04), oklch(55% 0.1 75 / 0.03));
+        --product-glow: oklch(38% 0.14 25 / 0.06);
+        --badge-bg: oklch(38% 0.14 25 / 0.08);
+        --badge-border: oklch(38% 0.14 25 / 0.18);
+        --cta-bg: linear-gradient(135deg, oklch(38% 0.14 25 / 0.06), oklch(55% 0.1 75 / 0.05));
+        --btn-shadow: oklch(32% 0.12 20 / 0.2);
+        --btn-shadow-hover: oklch(32% 0.12 20 / 0.3);
+        --logo-glow: oklch(38% 0.14 25 / 0.4);
+        --heading-gradient: linear-gradient(135deg, var(--tx) 40%, var(--brand) 100%);
+        --btn-text: oklch(99% 0.005 75);
+        --header-bg: color-mix(in oklch, var(--surface) 90%, transparent);
+      }
+
+      [data-theme="brutalist"] {
+        color-scheme: light;
+        --bg: oklch(100% 0 0);
+        --bg-soft: oklch(96% 0 0);
+        --surface: oklch(100% 0 0);
+        --tx: oklch(10% 0 0);
+        --muted: oklch(35% 0 0);
+        --brand: oklch(88% 0.2 105);
+        --brand-2: oklch(82% 0.22 100);
+        --accent: oklch(10% 0 0);
+        --line: oklch(10% 0 0);
+        --shadow: 4px 4px 0 oklch(10% 0 0);
+        --shadow-lg: 6px 6px 0 oklch(10% 0 0);
+        --radius: 0px;
+        --font-display: "Space Grotesk", system-ui, sans-serif;
+        --font-body: "Space Grotesk", system-ui, sans-serif;
+        --bg-glow-1: transparent;
+        --bg-glow-2: transparent;
+        --card-overlay: none;
+        --product-glow: transparent;
+        --badge-bg: var(--brand);
+        --badge-border: oklch(10% 0 0);
+        --cta-bg: var(--brand);
+        --btn-shadow: none;
+        --btn-shadow-hover: none;
+        --logo-glow: transparent;
+        --heading-gradient: none;
+        --btn-text: oklch(10% 0 0);
+        --header-bg: var(--surface);
+      }
+
+      [data-theme="ocean"] {
+        color-scheme: light;
+        --bg: oklch(97% 0.015 230);
+        --bg-soft: oklch(94% 0.02 230);
+        --surface: oklch(99.5% 0.008 230);
+        --tx: oklch(25% 0.04 230);
+        --muted: oklch(50% 0.04 230);
+        --brand: oklch(55% 0.14 200);
+        --brand-2: oklch(48% 0.16 220);
+        --accent: oklch(65% 0.12 175);
+        --line: oklch(88% 0.03 230);
+        --shadow: 0 18px 48px oklch(40% 0.06 230 / 0.1);
+        --shadow-lg: 0 28px 72px oklch(40% 0.08 230 / 0.14);
+        --radius: 20px;
+        --font-display: "Plus Jakarta Sans", system-ui, sans-serif;
+        --font-body: "Plus Jakarta Sans", system-ui, sans-serif;
+        --bg-glow-1: oklch(80% 0.08 200 / 0.35);
+        --bg-glow-2: oklch(82% 0.06 175 / 0.25);
+        --card-overlay: linear-gradient(145deg, oklch(55% 0.14 200 / 0.07), oklch(65% 0.12 175 / 0.05));
+        --product-glow: oklch(55% 0.14 200 / 0.1);
+        --badge-bg: oklch(55% 0.14 200 / 0.1);
+        --badge-border: oklch(55% 0.14 200 / 0.22);
+        --cta-bg: linear-gradient(135deg, oklch(55% 0.14 200 / 0.1), oklch(65% 0.12 175 / 0.08));
+        --btn-shadow: oklch(48% 0.16 220 / 0.25);
+        --btn-shadow-hover: oklch(48% 0.16 220 / 0.35);
+        --logo-glow: oklch(55% 0.14 200 / 0.45);
+        --heading-gradient: linear-gradient(135deg, var(--tx) 25%, var(--brand) 100%);
+        --btn-text: white;
+        --header-bg: color-mix(in oklch, var(--surface) 85%, transparent);
+      }
+
+      :root {
+        --max: 1120px;
       }
     }
 
@@ -50,12 +190,13 @@
         font-family: var(--font-body);
         color: var(--tx);
         background:
-          radial-gradient(ellipse 80% 50% at 90% -5%, oklch(88% 0.08 255 / 0.45), transparent 55%),
-          radial-gradient(ellipse 60% 40% at -5% 40%, oklch(90% 0.06 165 / 0.35), transparent 50%),
+          radial-gradient(ellipse 80% 50% at 90% -5%, var(--bg-glow-1), transparent 55%),
+          radial-gradient(ellipse 60% 40% at -5% 40%, var(--bg-glow-2), transparent 50%),
           var(--bg);
         line-height: 1.6;
         text-rendering: optimizeLegibility;
         -webkit-font-smoothing: antialiased;
+        transition: background 400ms ease, color 300ms ease;
       }
 
       a { color: inherit; text-decoration: none; }
@@ -63,8 +204,22 @@
       h1, h2, h3, h4 {
         font-family: var(--font-display);
         font-weight: 700;
-        font-variation-settings: "opsz" 72;
         text-wrap: balance;
+      }
+
+      [data-theme="luminous"] h1,
+      [data-theme="luminous"] h2,
+      [data-theme="luminous"] h3,
+      [data-theme="luminous"] h4 {
+        font-variation-settings: "opsz" 72;
+      }
+
+      [data-theme="brutalist"] h1,
+      [data-theme="brutalist"] h2,
+      [data-theme="brutalist"] h3,
+      [data-theme="brutalist"] h4 {
+        text-transform: uppercase;
+        letter-spacing: -0.02em;
       }
 
       p { text-wrap: pretty; }
@@ -78,8 +233,9 @@
         top: 0;
         z-index: 20;
         backdrop-filter: blur(16px) saturate(1.4);
-        background: color-mix(in oklch, var(--surface) 82%, transparent);
+        background: var(--header-bg);
         border-bottom: 1px solid color-mix(in oklch, var(--line) 70%, transparent);
+        transition: background 300ms ease, border-color 300ms ease;
       }
 
       .nav {
@@ -88,6 +244,12 @@
         justify-content: space-between;
         min-height: 72px;
         gap: 16px;
+      }
+
+      .nav-end {
+        display: flex;
+        align-items: center;
+        gap: 12px;
       }
 
       .hero {
@@ -124,8 +286,17 @@
         height: 11px;
         border-radius: 50%;
         background: conic-gradient(from var(--glow-angle), var(--brand), var(--accent), var(--brand-2), var(--brand));
-        box-shadow: 0 0 20px oklch(58% 0.18 255 / 0.5);
+        box-shadow: 0 0 20px var(--logo-glow);
         animation: spin-glow 6s linear infinite;
+      }
+
+      [data-theme="brutalist"] .logo-dot {
+        border-radius: 0;
+        width: 12px;
+        height: 12px;
+        animation: none;
+        background: var(--brand);
+        border: 2px solid var(--tx);
       }
 
       @keyframes spin-glow {
@@ -140,11 +311,60 @@
         font-weight: 500;
       }
 
-      .nav-links a {
-        transition: color 160ms ease;
+      .nav-links a { transition: color 160ms ease; }
+      .nav-links a:hover { color: var(--tx); }
+
+      .theme-switcher {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 4px;
+        border: 1px solid var(--line);
+        border-radius: calc(var(--radius) + 4px);
+        background: color-mix(in oklch, var(--surface) 70%, transparent);
       }
 
-      .nav-links a:hover { color: var(--tx); }
+      .theme-switcher legend {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        border: 0;
+      }
+
+      .theme-btn {
+        width: 26px;
+        height: 26px;
+        padding: 0;
+        border: 2px solid transparent;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: transform 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
+      }
+
+      [data-theme="brutalist"] .theme-switcher {
+        border-radius: 0;
+      }
+
+      [data-theme="brutalist"] .theme-btn {
+        border-radius: 0;
+      }
+
+      .theme-btn:hover { transform: scale(1.12); }
+
+      .theme-btn[aria-pressed="true"] {
+        border-color: var(--tx);
+        box-shadow: 0 0 0 2px color-mix(in oklch, var(--surface) 80%, transparent);
+      }
+
+      .theme-btn[data-theme="luminous"] { background: linear-gradient(135deg, oklch(98% 0.01 85), oklch(58% 0.18 255)); }
+      .theme-btn[data-theme="midnight"] { background: linear-gradient(135deg, oklch(14% 0.02 265), oklch(72% 0.14 255)); }
+      .theme-btn[data-theme="editorial"] { background: linear-gradient(135deg, oklch(97% 0.01 75), oklch(38% 0.14 25)); }
+      .theme-btn[data-theme="brutalist"] { background: linear-gradient(135deg, white 50%, oklch(88% 0.2 105) 50%); border: 1px solid black; }
+      .theme-btn[data-theme="ocean"] { background: linear-gradient(135deg, oklch(97% 0.015 230), oklch(55% 0.14 200)); }
 
       .btn {
         display: inline-flex;
@@ -152,23 +372,34 @@
         justify-content: center;
         min-height: 44px;
         padding: 0 20px;
-        border-radius: 12px;
+        border-radius: var(--radius);
         border: 1px solid transparent;
         font-weight: 600;
         font-size: 0.95rem;
-        transition: transform 160ms ease, box-shadow 160ms ease, filter 160ms ease;
+        transition: transform 160ms ease, box-shadow 160ms ease, filter 160ms ease, background 300ms ease, color 300ms ease;
       }
 
       .btn-primary {
         background: linear-gradient(135deg, var(--brand), var(--brand-2));
-        color: white;
-        box-shadow: 0 8px 24px oklch(52% 0.22 285 / 0.28);
+        color: var(--btn-text);
+        box-shadow: 0 8px 24px var(--btn-shadow);
+      }
+
+      [data-theme="brutalist"] .btn-primary {
+        background: var(--brand);
+        border: 2px solid var(--tx);
+        box-shadow: var(--shadow);
       }
 
       .btn-primary:hover {
         transform: translateY(-2px);
-        box-shadow: 0 12px 32px oklch(52% 0.22 285 / 0.35);
+        box-shadow: 0 12px 32px var(--btn-shadow-hover);
         filter: brightness(1.04);
+      }
+
+      [data-theme="brutalist"] .btn-primary:hover {
+        filter: none;
+        box-shadow: var(--shadow-lg);
       }
 
       .btn-ghost {
@@ -187,10 +418,19 @@
         line-height: 1.08;
         margin: 0 0 20px;
         letter-spacing: -0.03em;
-        background: linear-gradient(135deg, var(--tx) 30%, var(--brand) 100%);
+      }
+
+      html:not([data-theme="brutalist"]) h1 {
+        background: var(--heading-gradient);
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
+      }
+
+      [data-theme="brutalist"] h1 {
+        background: none;
+        -webkit-text-fill-color: var(--tx);
+        color: var(--tx);
       }
 
       .lead {
@@ -212,14 +452,18 @@
       .kpi {
         border: 1px solid var(--line);
         background: color-mix(in oklch, var(--surface) 80%, transparent);
-        border-radius: 14px;
+        border-radius: var(--radius);
         padding: 14px 16px;
-        transition: box-shadow 200ms ease, transform 200ms ease;
+        transition: box-shadow 200ms ease, transform 200ms ease, background 300ms ease;
       }
 
       .kpi:hover {
         box-shadow: var(--shadow);
         transform: translateY(-2px);
+      }
+
+      [data-theme="brutalist"] .kpi:hover {
+        transform: translate(-2px, -2px);
       }
 
       .kpi strong {
@@ -230,7 +474,15 @@
         color: var(--brand);
       }
 
+      [data-theme="brutalist"] .kpi strong { color: var(--tx); }
+
       .kpi span { color: var(--muted); font-size: 0.86rem; }
+
+      .hero-card,
+      .card,
+      .product-card {
+        transition: box-shadow 200ms ease, transform 200ms ease, border-color 200ms ease, background 300ms ease;
+      }
 
       .hero-card {
         background: var(--surface);
@@ -246,17 +498,13 @@
         content: "";
         position: absolute;
         inset: 0;
-        background: linear-gradient(145deg, oklch(58% 0.18 255 / 0.06), oklch(62% 0.14 165 / 0.04));
+        background: var(--card-overlay);
         pointer-events: none;
       }
 
       .hero-card > * { position: relative; }
 
-      .hero-card h3 {
-        margin: 0 0 10px;
-        font-size: 1.2rem;
-      }
-
+      .hero-card h3 { margin: 0 0 10px; font-size: 1.2rem; }
       .hero-card p { margin: 0; color: var(--muted); }
 
       .stack {
@@ -275,6 +523,8 @@
         font-size: 0.82rem;
         font-weight: 500;
       }
+
+      [data-theme="brutalist"] .chip { border-radius: 0; }
 
       .section-title {
         margin: 0 0 8px;
@@ -297,9 +547,8 @@
       .card {
         background: var(--surface);
         border: 1px solid var(--line);
-        border-radius: 16px;
+        border-radius: var(--radius);
         padding: 22px;
-        transition: box-shadow 200ms ease, transform 200ms ease, border-color 200ms ease;
       }
 
       .card:hover {
@@ -308,16 +557,14 @@
         border-color: color-mix(in oklch, var(--brand) 25%, var(--line));
       }
 
-      .card h4 {
-        margin: 0 0 10px;
-        font-size: 1.05rem;
+      [data-theme="brutalist"] .card:hover {
+        transform: translate(-3px, -3px);
       }
 
+      .card h4 { margin: 0 0 10px; font-size: 1.05rem; }
       .card p { margin: 0; color: var(--muted); font-size: 0.95rem; }
 
-      .product-showcase {
-        container-type: inline-size;
-      }
+      .product-showcase { container-type: inline-size; }
 
       .product-card {
         display: grid;
@@ -340,7 +587,7 @@
         right: -20%;
         width: 60%;
         height: 80%;
-        background: radial-gradient(ellipse, oklch(58% 0.18 255 / 0.08), transparent 70%);
+        background: radial-gradient(ellipse, var(--product-glow), transparent 70%);
         pointer-events: none;
       }
 
@@ -355,11 +602,16 @@
         text-transform: uppercase;
         letter-spacing: 0.06em;
         color: var(--brand);
-        background: oklch(58% 0.18 255 / 0.1);
-        border: 1px solid oklch(58% 0.18 255 / 0.2);
+        background: var(--badge-bg);
+        border: 1px solid var(--badge-border);
         border-radius: 999px;
         padding: 5px 12px;
         margin-bottom: 14px;
+      }
+
+      [data-theme="brutalist"] .product-badge {
+        color: var(--tx);
+        border-radius: 0;
       }
 
       .product-info h3 {
@@ -398,10 +650,18 @@
         background: var(--accent);
       }
 
+      [data-theme="brutalist"] .product-features li::before {
+        border-radius: 0;
+        width: 8px;
+        height: 8px;
+        background: var(--brand);
+        border: 1px solid var(--tx);
+      }
+
       .product-visual {
         position: relative;
         z-index: 1;
-        border-radius: 12px;
+        border-radius: var(--radius);
         overflow: hidden;
         border: 1px solid var(--line);
         box-shadow: var(--shadow);
@@ -416,7 +676,7 @@
       .cta {
         margin: 32px 0 16px;
         border: 1px solid color-mix(in oklch, var(--brand) 20%, var(--line));
-        background: linear-gradient(135deg, oklch(58% 0.18 255 / 0.08), oklch(62% 0.14 165 / 0.06));
+        background: var(--cta-bg);
         border-radius: var(--radius);
         padding: 32px;
         display: flex;
@@ -424,6 +684,7 @@
         justify-content: space-between;
         gap: 20px;
         flex-wrap: wrap;
+        transition: background 300ms ease;
       }
 
       .reveal {
@@ -433,22 +694,14 @@
       }
 
       @keyframes fade-up {
-        from {
-          opacity: 0;
-          transform: translateY(24px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
+        from { opacity: 0; transform: translateY(24px); }
+        to { opacity: 1; transform: translateY(0); }
       }
     }
 
     @layer utilities {
       @container (max-width: 700px) {
-        .product-card {
-          grid-template-columns: 1fr;
-        }
+        .product-card { grid-template-columns: 1fr; }
       }
 
       @media (max-width: 980px) {
@@ -462,12 +715,13 @@
         .grid { grid-template-columns: 1fr; }
         .hero { padding-top: 56px; }
         .product-card { padding: 22px; }
+        .theme-switcher { display: none; }
       }
 
       @media (prefers-reduced-motion: reduce) {
         .logo-dot { animation: none; }
         .reveal { animation: none; }
-        .card, .kpi, .btn-primary { transition: none; }
+        .card, .kpi, .btn-primary, body { transition: none; }
       }
     }
   </style>
@@ -485,7 +739,17 @@
         <a href="#enfoque">Enfoque</a>
         <a href="#contacto">Contacto</a>
       </nav>
-      <a class="btn btn-primary" href="#contacto">Hablemos</a>
+      <div class="nav-end">
+        <fieldset class="theme-switcher" id="theme-switcher">
+          <legend>Seleccionar tema visual</legend>
+          <button class="theme-btn" type="button" data-theme="luminous" aria-pressed="true" title="Luminous — SaaS moderno"></button>
+          <button class="theme-btn" type="button" data-theme="midnight" aria-pressed="false" title="Midnight — Dark mode Vercel"></button>
+          <button class="theme-btn" type="button" data-theme="editorial" aria-pressed="false" title="Editorial — Revista premium"></button>
+          <button class="theme-btn" type="button" data-theme="brutalist" aria-pressed="false" title="Brutalist — Alto contraste"></button>
+          <button class="theme-btn" type="button" data-theme="ocean" aria-pressed="false" title="Ocean — Calma Notion"></button>
+        </fieldset>
+        <a class="btn btn-primary" href="#contacto">Hablemos</a>
+      </div>
     </div>
   </header>
 
@@ -609,7 +873,33 @@
   </footer>
 
   <script>
-    document.getElementById('year').textContent = String(new Date().getFullYear());
+    (function () {
+      var STORAGE_KEY = "zatiki-theme";
+      var THEMES = ["luminous", "midnight", "editorial", "brutalist", "ocean"];
+      var root = document.documentElement;
+      var buttons = document.querySelectorAll(".theme-btn");
+
+      function applyTheme(name) {
+        if (THEMES.indexOf(name) === -1) name = "luminous";
+        root.setAttribute("data-theme", name);
+        buttons.forEach(function (btn) {
+          btn.setAttribute("aria-pressed", btn.dataset.theme === name ? "true" : "false");
+        });
+        try { localStorage.setItem(STORAGE_KEY, name); } catch (_) {}
+      }
+
+      var saved = null;
+      try { saved = localStorage.getItem(STORAGE_KEY); } catch (_) {}
+      if (saved) applyTheme(saved);
+
+      buttons.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          applyTheme(btn.dataset.theme);
+        });
+      });
+
+      document.getElementById("year").textContent = String(new Date().getFullYear());
+    })();
   </script>
 </body>
 </html>

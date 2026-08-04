@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Zatiki Labs</title>
-  <meta name="description" content="Zatiki Labs crea productos digitales con foco en IA aplicada, automatización y ejecución técnica fiable.">
+  <meta name="description" content="Zatiki Labs: ingeniería digital con IA y open source para organizaciones con requisitos exigentes. Experiencia en entornos industriales y productos propios de alto impacto.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@9..144,500;9..144,700;9..144,800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Space+Grotesk:wght@500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -564,7 +564,45 @@
       .card h4 { margin: 0 0 10px; font-size: 1.05rem; }
       .card p { margin: 0; color: var(--muted); font-size: 0.95rem; }
 
-      .product-showcase { container-type: inline-size; }
+      .product-showcase {
+        container-type: inline-size;
+        display: grid;
+        gap: 32px;
+      }
+
+      .product-card--reverse {
+        grid-template-columns: 1.4fr 1fr;
+      }
+
+      .product-card--reverse .product-info { order: 2; }
+      .product-card--reverse .product-visual { order: 1; }
+
+      .product-visual--gallery {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        border: none;
+        box-shadow: none;
+        background: transparent;
+      }
+
+      .product-visual--gallery img {
+        border-radius: calc(var(--radius) - 4px);
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow);
+      }
+
+      .product-visual-caption {
+        display: block;
+        margin-top: 6px;
+        font-size: 0.78rem;
+        color: var(--muted);
+        text-align: center;
+      }
+
+      .product-figure {
+        margin: 0;
+      }
 
       .product-card {
         display: grid;
@@ -701,7 +739,11 @@
 
     @layer utilities {
       @container (max-width: 700px) {
-        .product-card { grid-template-columns: 1fr; }
+        .product-card,
+        .product-card--reverse { grid-template-columns: 1fr; }
+        .product-card--reverse .product-info,
+        .product-card--reverse .product-visual { order: unset; }
+        .product-visual--gallery { grid-template-columns: 1fr; }
       }
 
       @media (max-width: 980px) {
@@ -756,58 +798,59 @@
   <main>
     <section class="wrap hero">
       <div>
-        <h1>Ingeniería digital con IA para equipos que quieren ejecutar más rápido.</h1>
+        <h1>Tecnología de precisión para organizaciones con requisitos exigentes.</h1>
         <p class="lead">
-          Diseñamos y construimos productos web, automatizaciones y herramientas internas con foco en calidad técnica,
-          mantenibilidad y valor real de negocio.
+          En Zatiki Labs combinamos experiencia en entornos industriales de alta exigencia con inteligencia artificial
+          y ecosistemas open source. Transformamos necesidades complejas en software fiable, escalable y listo para producción.
         </p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#contacto">Solicitar reunión</a>
           <a class="btn btn-ghost" href="#productos">Ver productos</a>
         </div>
         <div class="kpis">
-          <div class="kpi"><strong>+30</strong><span>proyectos entregados</span></div>
-          <div class="kpi"><strong>95%</strong><span>clientes recurrentes</span></div>
-          <div class="kpi"><strong>24/7</strong><span>monitorización operativa</span></div>
+          <div class="kpi"><strong>IA + OSS</strong><span>stack híbrido de última generación</span></div>
+          <div class="kpi"><strong>Industrial</strong><span>requisitos críticos y usuarios exigentes</span></div>
+          <div class="kpi"><strong>Producto</strong><span>de la idea al despliegue continuo</span></div>
         </div>
       </div>
       <aside class="hero-card" aria-label="Resumen">
-        <h3>Qué hacemos en la práctica</h3>
+        <h3>Cómo trabajamos</h3>
         <p>
-          Desde landing pages corporativas hasta plataformas internas con IA aplicada, integraciones y despliegue continuo.
+          Aplicamos metodologías rigurosas heredadas de la ingeniería industrial: análisis de requisitos,
+          prototipado rápido con IA y construcción sobre componentes open source probados en producción.
         </p>
         <div class="stack">
-          <span class="chip">Web estática y dinámica</span>
-          <span class="chip">Automatización de procesos</span>
-          <span class="chip">Integración de APIs</span>
-          <span class="chip">Infraestructura y CI/CD</span>
-          <span class="chip">Analítica de producto</span>
+          <span class="chip">Requisitos industriales</span>
+          <span class="chip">IA generativa aplicada</span>
+          <span class="chip">Open source</span>
+          <span class="chip">Automatización</span>
+          <span class="chip">Integración de sistemas</span>
         </div>
       </aside>
     </section>
 
     <section id="servicios" class="wrap reveal">
       <h2 class="section-title">Servicios</h2>
-      <p class="section-sub">Capacidades enfocadas a negocio, producto y operación técnica.</p>
+      <p class="section-sub">Capacidades técnicas para organizaciones que no pueden permitirse improvisación.</p>
       <div class="grid">
         <article class="card">
-          <h4>Desarrollo web empresarial</h4>
-          <p>Webs corporativas, portales de cliente y herramientas internas con experiencia fluida y alto rendimiento.</p>
+          <h4>Ingeniería de software</h4>
+          <p>Plataformas web, herramientas internas y productos digitales con arquitectura sólida y experiencia de usuario cuidada.</p>
         </article>
         <article class="card">
-          <h4>IA aplicada</h4>
-          <p>Asistentes, clasificación de datos, workflows inteligentes y uso responsable de modelos en producción.</p>
+          <h4>IA y automatización</h4>
+          <p>Asistentes inteligentes, workflows con modelos de lenguaje y automatización de procesos sobre stack open source.</p>
         </article>
         <article class="card">
-          <h4>Automatización operativa</h4>
-          <p>Reducimos tareas manuales con integraciones y procesos reproducibles, auditables y escalables.</p>
+          <h4>Requisitos y entornos críticos</h4>
+          <p>Traducimos necesidades de usuarios exigentes —especialmente en contextos industriales— en especificaciones claras y software mantenible.</p>
         </article>
       </div>
     </section>
 
     <section id="productos" class="wrap reveal">
       <h2 class="section-title">Productos</h2>
-      <p class="section-sub">Herramientas propias que impulsan nuestro flujo de desarrollo.</p>
+      <p class="section-sub">Productos propios que demuestran nuestra capacidad de llevar ideas complejas a producción.</p>
       <div class="product-showcase">
         <article class="product-card">
           <div class="product-info">
@@ -835,24 +878,64 @@
             >
           </figure>
         </article>
+
+        <article class="product-card product-card--reverse">
+          <div class="product-info">
+            <span class="product-badge">Producto propio</span>
+            <h3>estudIA</h3>
+            <p>
+              Plataforma de estudio con IA para secundaria, bachillerato y universidad.
+              Combina lectura interactiva de libros digitales con diagramas de conceptos generados automáticamente.
+            </p>
+            <ul class="product-features">
+              <li>Modo lectura con índice navegable y edición integrada</li>
+              <li>Diagramas de conceptos con relaciones entre temas</li>
+              <li>Gestión de libros, barajas y planificación Gantt</li>
+              <li>Chat IA para consultas sobre el material de estudio</li>
+            </ul>
+            <a class="btn btn-primary" href="http://10.10.10.1:3005" target="_blank" rel="noopener">Abrir estudIA</a>
+          </div>
+          <div class="product-visual product-visual--gallery">
+            <figure class="product-figure">
+              <img
+                src="assets/estudia-lectura.png"
+                alt="estudIA en modo lectura con índice de contenidos y texto del libro"
+                width="1913"
+                height="897"
+                loading="lazy"
+              >
+              <figcaption class="product-visual-caption">Modo lectura</figcaption>
+            </figure>
+            <figure class="product-figure">
+              <img
+                src="assets/estudia-diagrama.png"
+                alt="estudIA mostrando un diagrama de conceptos con nodos interconectados"
+                width="1599"
+                height="773"
+                loading="lazy"
+              >
+              <figcaption class="product-visual-caption">Diagrama de conceptos</figcaption>
+            </figure>
+          </div>
+        </article>
       </div>
     </section>
 
     <section id="enfoque" class="wrap reveal">
       <h2 class="section-title">Enfoque de trabajo</h2>
-      <p class="section-sub">Claridad, ejecución incremental y métricas desde el primer día.</p>
+      <p class="section-sub">Rigor de ingeniería, velocidad de la IA y solidez del open source.</p>
       <div class="grid">
         <article class="card">
-          <h4>1. Diagnóstico</h4>
-          <p>Entendemos objetivos, restricciones y contexto técnico para priorizar lo que más impacto tiene.</p>
+          <h4>1. Análisis de requisitos</h4>
+          <p>Capturamos y priorizamos necesidades reales —incluso las más exigentes— antes de escribir una sola línea de código.</p>
         </article>
         <article class="card">
-          <h4>2. Entrega iterativa</h4>
-          <p>Iteraciones cortas con feedback continuo para acelerar valor sin comprometer calidad.</p>
+          <h4>2. Prototipado acelerado</h4>
+          <p>Usamos IA y componentes open source para validar ideas rápido y reducir el tiempo hasta el primer entregable útil.</p>
         </article>
         <article class="card">
-          <h4>3. Escalado seguro</h4>
-          <p>Buenas prácticas de despliegue, observabilidad y documentación para mantener el ritmo de evolución.</p>
+          <h4>3. Producción fiable</h4>
+          <p>Despliegue continuo, observabilidad y documentación para que el software evolucione sin sorpresas.</p>
         </article>
       </div>
     </section>
@@ -860,8 +943,8 @@
     <section id="contacto" class="wrap reveal">
       <div class="cta">
         <div>
-          <h2 class="section-title" style="margin-bottom:6px;">Construyamos tu próxima web</h2>
-          <p class="section-sub" style="margin:0;">Cuéntanos tu idea y preparamos una propuesta técnica y de ejecución.</p>
+          <h2 class="section-title" style="margin-bottom:6px;">Hablemos de tu próximo proyecto</h2>
+          <p class="section-sub" style="margin:0;">Cuéntanos el reto y preparamos una propuesta técnica con alcance, plazos y enfoque de ejecución.</p>
         </div>
         <a class="btn btn-primary" href="mailto:contacto@zatikilabs.com">contacto@zatikilabs.com</a>
       </div>

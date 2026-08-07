@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="es" data-theme="luminous">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>estudIA — Plataforma de estudio con IA</title>
+  <meta name="description" content="estudIA: lectura interactiva, diagramas de conceptos, barajas y chat IA para secundaria, bachillerato y universidad. Acceso seguro con Authelia.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@9..144,500;9..144,700;9..144,800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root, [data-theme="luminous"] {
+      color-scheme: light;
+      --bg: oklch(98.5% 0.008 85);
+      --surface: oklch(100% 0 0);
+      --tx: oklch(22% 0.03 265);
+      --muted: oklch(48% 0.03 265);
+      --brand: oklch(58% 0.18 255);
+      --brand-2: oklch(52% 0.22 285);
+      --accent: oklch(62% 0.14 165);
+      --line: oklch(88% 0.02 265);
+      --shadow: 0 20px 50px oklch(30% 0.04 265 / 0.08);
+      --shadow-lg: 0 32px 80px oklch(30% 0.06 265 / 0.12);
+      --radius: 18px;
+      --font-display: "Fraunces", Georgia, serif;
+      --font-body: "Instrument Sans", system-ui, sans-serif;
+      --max: 960px;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      color: var(--tx);
+      background:
+        radial-gradient(ellipse 80% 50% at 90% -5%, oklch(88% 0.08 255 / 0.45), transparent 55%),
+        radial-gradient(ellipse 60% 40% at -5% 40%, oklch(90% 0.06 165 / 0.35), transparent 50%),
+        var(--bg);
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    h1, h2, h3 { font-family: var(--font-display); font-weight: 700; text-wrap: balance; }
+    .wrap { width: min(var(--max), 92vw); margin: 0 auto; }
+    header {
+      position: sticky; top: 0; z-index: 20;
+      backdrop-filter: blur(16px) saturate(1.4);
+      background: color-mix(in oklch, var(--surface) 82%, transparent);
+      border-bottom: 1px solid color-mix(in oklch, var(--line) 70%, transparent);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; min-height: 68px; gap: 16px; }
+    .logo { font-family: var(--font-display); font-weight: 800; font-size: 1.05rem; }
+    .logo span { color: var(--muted); font-weight: 500; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 44px; padding: 0 20px; border-radius: var(--radius);
+      border: 1px solid transparent; font-weight: 600; font-size: 0.95rem;
+      transition: transform 160ms ease, box-shadow 160ms ease;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      color: white; box-shadow: 0 8px 24px oklch(52% 0.22 285 / 0.28);
+    }
+    .btn-primary:hover { transform: translateY(-2px); }
+    .btn-ghost { border-color: var(--line); background: color-mix(in oklch, var(--surface) 60%, transparent); }
+    .hero { padding: 72px 0 40px; display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 40px; align-items: center; }
+    h1 {
+      font-size: clamp(2.2rem, 4.5vw, 3.2rem); line-height: 1.08; margin: 0 0 18px;
+      background: linear-gradient(135deg, var(--tx) 30%, var(--brand) 100%);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .lead { color: var(--muted); margin: 0 0 28px; max-width: 52ch; font-size: 1.06rem; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .hero-card {
+      background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 22px; box-shadow: var(--shadow-lg);
+    }
+    .hero-card img { display: block; width: 100%; height: auto; border-radius: calc(var(--radius) - 4px); }
+    section { padding: 40px 0; }
+    .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+    .card {
+      background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px;
+    }
+    .card h3 { margin: 0 0 8px; font-size: 1.02rem; }
+    .card p { margin: 0; color: var(--muted); font-size: 0.94rem; }
+    .auth-box {
+      margin-top: 24px; border: 1px solid color-mix(in oklch, var(--brand) 22%, var(--line));
+      background: linear-gradient(135deg, oklch(58% 0.18 255 / 0.08), oklch(62% 0.14 165 / 0.06));
+      border-radius: var(--radius); padding: 28px;
+      display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;
+    }
+    .auth-box p { margin: 6px 0 0; color: var(--muted); max-width: 52ch; }
+    footer { border-top: 1px solid var(--line); color: var(--muted); padding: 24px 0 36px; font-size: 0.9rem; }
+    @media (max-width: 800px) {
+      .hero, .grid { grid-template-columns: 1fr; }
+      .hero { padding-top: 48px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <a class="logo" href="index.html">Zatiki Labs <span>/ estudIA</span></a>
+      <a class="btn btn-primary" href="http://10.10.10.1:3005" id="app-link">Acceder a estudIA</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="wrap hero">
+      <div>
+        <h1>Estudia con IA, diagramas y lectura interactiva.</h1>
+        <p class="lead">
+          estudIA combina libros digitales, diagramas de conceptos, barajas de repaso y un chat con Gemini
+          para secundaria, bachillerato y universidad. Organiza cada asignatura en un solo espacio de trabajo.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="http://10.10.10.1:3005" id="app-link-hero">Iniciar sesión</a>
+          <a class="btn btn-ghost" href="index.html#productos">Ver todos los productos</a>
+        </div>
+      </div>
+      <aside class="hero-card">
+        <img src="assets/estudia-lectura.png" alt="estudIA en modo lectura con índice y fragmentos del libro" width="1913" height="897" loading="eager">
+      </aside>
+    </section>
+
+    <section class="wrap">
+      <h2>Qué incluye</h2>
+      <div class="grid" style="margin-top:20px">
+        <article class="card">
+          <h3>Modo lectura</h3>
+          <p>Índice navegable, edición de fragmentos y tipografía ajustable para estudiar el material.</p>
+        </article>
+        <article class="card">
+          <h3>Diagrama de conceptos</h3>
+          <p>Relaciones semánticas entre temas y fragmentos, con layout automático y filtrado.</p>
+        </article>
+        <article class="card">
+          <h3>Chat IA + MemoKards</h3>
+          <p>Consulta al asistente sobre el libro y repasa con barajas vinculadas a cada asignatura.</p>
+        </article>
+      </div>
+
+      <div class="auth-box">
+        <div>
+          <h2 style="margin:0;font-size:1.35rem">Acceso protegido con Authelia</h2>
+          <p>
+            estudIA requiere autenticación. Al pulsar «Acceder», Authelia verificará tu identidad
+            y te redirigirá de vuelta a la aplicación. Si aún no tienes cuenta, contacta con el administrador.
+          </p>
+        </div>
+        <a class="btn btn-primary" href="http://10.10.10.1:3005" id="app-link-cta">Acceder con Authelia</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">© <span id="year"></span> Zatiki Labs · <a href="index.html">Volver al inicio</a></div>
+  </footer>
+
+  <script>
+    (function () {
+      var appUrl = new URLSearchParams(location.search).get('app') || 'http://10.10.10.1:3005';
+      document.querySelectorAll('#app-link, #app-link-hero, #app-link-cta').forEach(function (el) {
+        el.href = appUrl;
+      });
+      document.getElementById('year').textContent = String(new Date().getFullYear());
+    })();
+  </script>
+</body>
+</html>

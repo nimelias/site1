@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>estudIA — Plataforma de estudio con IA</title>
-  <meta name="description" content="estudIA: lectura interactiva, diagramas de conceptos, barajas y chat IA para secundaria, bachillerato y universidad. Acceso seguro con Authelia.">
+  <meta name="description" content="estudIA: lectura interactiva, diagramas de conceptos, barajas y chat IA para secundaria, bachillerato y universidad. Acceso con Google u otros proveedores OAuth.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@9..144,500;9..144,700;9..144,800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -99,7 +99,7 @@
   <header>
     <div class="wrap nav">
       <a class="logo" href="index.html">Zatiki Labs <span>/ estudIA</span></a>
-      <a class="btn btn-primary" href="http://10.10.10.1:3005" id="app-link">Acceder a estudIA</a>
+      <a class="btn btn-primary" href="https://10.10.10.1:3005" id="app-link">Acceder a estudIA</a>
     </div>
   </header>
 
@@ -112,7 +112,7 @@
           para secundaria, bachillerato y universidad. Organiza cada asignatura en un solo espacio de trabajo.
         </p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="http://10.10.10.1:3005" id="app-link-hero">Iniciar sesión</a>
+          <a class="btn btn-primary" href="https://10.10.10.1:3005" id="app-link-hero">Iniciar sesión</a>
           <a class="btn btn-ghost" href="index.html#productos">Ver todos los productos</a>
         </div>
       </div>
@@ -140,13 +140,13 @@
 
       <div class="auth-box">
         <div>
-          <h2 style="margin:0;font-size:1.35rem">Acceso protegido con Authelia</h2>
+          <h2 style="margin:0;font-size:1.35rem">Acceso con Google</h2>
           <p>
-            estudIA requiere autenticación. Al pulsar «Acceder», Authelia verificará tu identidad
-            y te redirigirá de vuelta a la aplicación. Si aún no tienes cuenta, contacta con el administrador.
+            estudIA no usa registro por email: entra con un proveedor externo (Google u otros configurados).
+            Serás redirigido a HTTPS hacia la aplicación.
           </p>
         </div>
-        <a class="btn btn-primary" href="http://10.10.10.1:3005" id="app-link-cta">Acceder con Authelia</a>
+        <a class="btn btn-primary" href="https://10.10.10.1:3005/login" id="app-link-cta">Continuar con Google</a>
       </div>
     </section>
   </main>
@@ -157,10 +157,17 @@
 
   <script>
     (function () {
-      var appUrl = new URLSearchParams(location.search).get('app') || 'http://10.10.10.1:3005';
-      document.querySelectorAll('#app-link, #app-link-hero, #app-link-cta').forEach(function (el) {
+      var appUrl = new URLSearchParams(location.search).get('app') || 'https://10.10.10.1:3005';
+      try {
+        var u = new URL(appUrl, location.href);
+        if (u.protocol === 'http:') u.protocol = 'https:';
+        appUrl = u.toString().replace(/\/$/, '');
+      } catch (_) {}
+      document.querySelectorAll('#app-link, #app-link-hero').forEach(function (el) {
         el.href = appUrl;
       });
+      var cta = document.getElementById('app-link-cta');
+      if (cta) cta.href = appUrl.replace(/\/$/, '') + '/login';
       document.getElementById('year').textContent = String(new Date().getFullYear());
     })();
   </script>

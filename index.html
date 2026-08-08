@@ -7,7 +7,7 @@
   <meta name="description" content="Zatiki Labs: ingeniería digital con IA y open source para organizaciones con requisitos exigentes. Experiencia en entornos industriales y productos propios de alto impacto.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@9..144,500;9..144,700;9..144,800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Space+Grotesk:wght@500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Fraunces:ital,opsz,wght@9..144,500;9..144,700;9..144,800&family=IBM+Plex+Mono:wght@400;500;600;700&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Grotesk:wght@500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
   <style>
     @layer reset, tokens, base, layout, components, utilities;
 
@@ -49,68 +49,77 @@
         --btn-text: white;
         --header-bg: color-mix(in oklch, var(--surface) 82%, transparent);
         --glow-angle: 0deg;
+        --layout-hero: "default";
+        --type-tracking: -0.02em;
+        --type-transform: none;
       }
 
-      [data-theme="midnight"] {
+      [data-theme="signal"] {
         color-scheme: dark;
-        --bg: oklch(14% 0.02 265);
-        --bg-soft: oklch(18% 0.025 265);
-        --surface: oklch(20% 0.03 265);
-        --tx: oklch(96% 0.01 265);
-        --muted: oklch(68% 0.03 265);
-        --brand: oklch(72% 0.14 255);
-        --brand-2: oklch(65% 0.18 285);
-        --accent: oklch(75% 0.12 165);
-        --line: oklch(30% 0.03 265);
-        --shadow: 0 20px 50px oklch(0% 0 0 / 0.4);
-        --shadow-lg: 0 32px 80px oklch(0% 0 0 / 0.55);
-        --radius: 12px;
-        --font-display: "DM Sans", system-ui, sans-serif;
-        --font-body: "DM Sans", system-ui, sans-serif;
-        --bg-glow-1: oklch(35% 0.12 255 / 0.35);
-        --bg-glow-2: oklch(28% 0.08 285 / 0.25);
-        --card-overlay: linear-gradient(145deg, oklch(72% 0.14 255 / 0.08), oklch(75% 0.12 165 / 0.05));
-        --product-glow: oklch(72% 0.14 255 / 0.12);
-        --badge-bg: oklch(72% 0.14 255 / 0.15);
-        --badge-border: oklch(72% 0.14 255 / 0.3);
-        --cta-bg: linear-gradient(135deg, oklch(72% 0.14 255 / 0.12), oklch(75% 0.12 165 / 0.08));
-        --btn-shadow: oklch(65% 0.18 285 / 0.35);
-        --btn-shadow-hover: oklch(65% 0.18 285 / 0.5);
-        --logo-glow: oklch(72% 0.14 255 / 0.7);
-        --heading-gradient: linear-gradient(135deg, var(--tx) 20%, var(--brand) 100%);
-        --btn-text: oklch(14% 0.02 265);
-        --header-bg: color-mix(in oklch, var(--bg) 75%, transparent);
+        --bg: oklch(12% 0.03 145);
+        --bg-soft: oklch(16% 0.04 145);
+        --surface: oklch(14% 0.035 145);
+        --tx: oklch(88% 0.18 145);
+        --muted: oklch(62% 0.1 145);
+        --brand: oklch(78% 0.22 145);
+        --brand-2: oklch(72% 0.18 160);
+        --accent: oklch(85% 0.2 130);
+        --line: oklch(35% 0.08 145);
+        --shadow: 0 0 0 1px oklch(78% 0.22 145 / 0.35);
+        --shadow-lg: 0 0 40px oklch(78% 0.22 145 / 0.2);
+        --radius: 2px;
+        --font-display: "IBM Plex Mono", ui-monospace, monospace;
+        --font-body: "IBM Plex Mono", ui-monospace, monospace;
+        --bg-glow-1: oklch(40% 0.16 145 / 0.25);
+        --bg-glow-2: oklch(30% 0.1 160 / 0.2);
+        --card-overlay: linear-gradient(180deg, oklch(78% 0.22 145 / 0.06), transparent 40%);
+        --product-glow: oklch(78% 0.22 145 / 0.15);
+        --badge-bg: oklch(20% 0.06 145);
+        --badge-border: oklch(78% 0.22 145);
+        --cta-bg: oklch(16% 0.05 145);
+        --btn-shadow: oklch(78% 0.22 145 / 0.4);
+        --btn-shadow-hover: oklch(78% 0.22 145 / 0.6);
+        --logo-glow: oklch(78% 0.22 145 / 0.8);
+        --heading-gradient: none;
+        --btn-text: oklch(12% 0.03 145);
+        --header-bg: color-mix(in oklch, var(--bg) 88%, transparent);
+        --layout-hero: "stack";
+        --type-tracking: 0.04em;
+        --type-transform: uppercase;
       }
 
-      [data-theme="editorial"] {
+      [data-theme="atelier"] {
         color-scheme: light;
-        --bg: oklch(97.5% 0.01 75);
-        --bg-soft: oklch(95% 0.015 75);
-        --surface: oklch(99% 0.005 75);
-        --tx: oklch(18% 0.02 30);
-        --muted: oklch(42% 0.03 30);
-        --brand: oklch(38% 0.14 25);
-        --brand-2: oklch(32% 0.12 20);
-        --accent: oklch(55% 0.1 75);
-        --line: oklch(86% 0.02 75);
-        --shadow: 0 16px 40px oklch(25% 0.04 30 / 0.07);
-        --shadow-lg: 0 28px 64px oklch(25% 0.05 30 / 0.1);
-        --radius: 6px;
-        --font-display: "Playfair Display", Georgia, serif;
-        --font-body: "Source Serif 4", Georgia, serif;
-        --bg-glow-1: oklch(88% 0.04 75 / 0.3);
-        --bg-glow-2: oklch(85% 0.06 25 / 0.15);
-        --card-overlay: linear-gradient(145deg, oklch(38% 0.14 25 / 0.04), oklch(55% 0.1 75 / 0.03));
-        --product-glow: oklch(38% 0.14 25 / 0.06);
-        --badge-bg: oklch(38% 0.14 25 / 0.08);
-        --badge-border: oklch(38% 0.14 25 / 0.18);
-        --cta-bg: linear-gradient(135deg, oklch(38% 0.14 25 / 0.06), oklch(55% 0.1 75 / 0.05));
-        --btn-shadow: oklch(32% 0.12 20 / 0.2);
-        --btn-shadow-hover: oklch(32% 0.12 20 / 0.3);
-        --logo-glow: oklch(38% 0.14 25 / 0.4);
-        --heading-gradient: linear-gradient(135deg, var(--tx) 40%, var(--brand) 100%);
-        --btn-text: oklch(99% 0.005 75);
-        --header-bg: color-mix(in oklch, var(--surface) 90%, transparent);
+        --bg: oklch(98% 0 0);
+        --bg-soft: oklch(94% 0 0);
+        --surface: oklch(100% 0 0);
+        --tx: oklch(8% 0 0);
+        --muted: oklch(40% 0 0);
+        --brand: oklch(48% 0.24 25);
+        --brand-2: oklch(35% 0.2 25);
+        --accent: oklch(8% 0 0);
+        --line: oklch(8% 0 0);
+        --shadow: none;
+        --shadow-lg: none;
+        --radius: 0px;
+        --font-display: "Archivo Black", Impact, sans-serif;
+        --font-body: "Instrument Sans", system-ui, sans-serif;
+        --bg-glow-1: transparent;
+        --bg-glow-2: transparent;
+        --card-overlay: none;
+        --product-glow: transparent;
+        --badge-bg: var(--brand);
+        --badge-border: var(--tx);
+        --cta-bg: oklch(96% 0 0);
+        --btn-shadow: none;
+        --btn-shadow-hover: none;
+        --logo-glow: transparent;
+        --heading-gradient: none;
+        --btn-text: oklch(100% 0 0);
+        --header-bg: var(--bg);
+        --layout-hero: "split-reverse";
+        --type-tracking: -0.04em;
+        --type-transform: uppercase;
       }
 
       [data-theme="brutalist"] {
@@ -142,37 +151,43 @@
         --heading-gradient: none;
         --btn-text: oklch(10% 0 0);
         --header-bg: var(--surface);
+        --layout-hero: "default";
+        --type-tracking: -0.02em;
+        --type-transform: uppercase;
       }
 
-      [data-theme="ocean"] {
-        color-scheme: light;
-        --bg: oklch(97% 0.015 230);
-        --bg-soft: oklch(94% 0.02 230);
-        --surface: oklch(99.5% 0.008 230);
-        --tx: oklch(25% 0.04 230);
-        --muted: oklch(50% 0.04 230);
-        --brand: oklch(55% 0.14 200);
-        --brand-2: oklch(48% 0.16 220);
-        --accent: oklch(65% 0.12 175);
-        --line: oklch(88% 0.03 230);
-        --shadow: 0 18px 48px oklch(40% 0.06 230 / 0.1);
-        --shadow-lg: 0 28px 72px oklch(40% 0.08 230 / 0.14);
-        --radius: 20px;
-        --font-display: "Plus Jakarta Sans", system-ui, sans-serif;
-        --font-body: "Plus Jakarta Sans", system-ui, sans-serif;
-        --bg-glow-1: oklch(80% 0.08 200 / 0.35);
-        --bg-glow-2: oklch(82% 0.06 175 / 0.25);
-        --card-overlay: linear-gradient(145deg, oklch(55% 0.14 200 / 0.07), oklch(65% 0.12 175 / 0.05));
-        --product-glow: oklch(55% 0.14 200 / 0.1);
-        --badge-bg: oklch(55% 0.14 200 / 0.1);
-        --badge-border: oklch(55% 0.14 200 / 0.22);
-        --cta-bg: linear-gradient(135deg, oklch(55% 0.14 200 / 0.1), oklch(65% 0.12 175 / 0.08));
-        --btn-shadow: oklch(48% 0.16 220 / 0.25);
-        --btn-shadow-hover: oklch(48% 0.16 220 / 0.35);
-        --logo-glow: oklch(55% 0.14 200 / 0.45);
-        --heading-gradient: linear-gradient(135deg, var(--tx) 25%, var(--brand) 100%);
-        --btn-text: white;
-        --header-bg: color-mix(in oklch, var(--surface) 85%, transparent);
+      [data-theme="prism"] {
+        color-scheme: dark;
+        --bg: oklch(18% 0.04 300);
+        --bg-soft: oklch(22% 0.05 300);
+        --surface: oklch(24% 0.05 300 / 0.72);
+        --tx: oklch(97% 0.01 100);
+        --muted: oklch(78% 0.04 300);
+        --brand: oklch(72% 0.2 330);
+        --brand-2: oklch(75% 0.18 200);
+        --accent: oklch(85% 0.16 95);
+        --line: oklch(55% 0.12 300 / 0.45);
+        --shadow: 12px 18px 0 oklch(72% 0.2 330 / 0.35);
+        --shadow-lg: 18px 28px 0 oklch(75% 0.18 200 / 0.3);
+        --radius: 28px;
+        --font-display: "Syne", system-ui, sans-serif;
+        --font-body: "Instrument Sans", system-ui, sans-serif;
+        --bg-glow-1: oklch(50% 0.2 330 / 0.4);
+        --bg-glow-2: oklch(48% 0.16 200 / 0.35);
+        --card-overlay: linear-gradient(135deg, oklch(72% 0.2 330 / 0.18), oklch(75% 0.18 200 / 0.12));
+        --product-glow: oklch(72% 0.2 330 / 0.2);
+        --badge-bg: oklch(72% 0.2 330 / 0.2);
+        --badge-border: oklch(75% 0.18 200 / 0.5);
+        --cta-bg: linear-gradient(120deg, oklch(72% 0.2 330 / 0.2), oklch(75% 0.18 200 / 0.18));
+        --btn-shadow: oklch(72% 0.2 330 / 0.45);
+        --btn-shadow-hover: oklch(75% 0.18 200 / 0.5);
+        --logo-glow: oklch(85% 0.16 95 / 0.7);
+        --heading-gradient: linear-gradient(110deg, oklch(97% 0.01 100), oklch(72% 0.2 330) 45%, oklch(75% 0.18 200));
+        --btn-text: oklch(12% 0.02 300);
+        --header-bg: color-mix(in oklch, var(--bg) 70%, transparent);
+        --layout-hero: "skew";
+        --type-tracking: -0.03em;
+        --type-transform: none;
       }
 
       :root {
@@ -217,9 +232,98 @@
       [data-theme="brutalist"] h1,
       [data-theme="brutalist"] h2,
       [data-theme="brutalist"] h3,
-      [data-theme="brutalist"] h4 {
-        text-transform: uppercase;
-        letter-spacing: -0.02em;
+      [data-theme="brutalist"] h4,
+      [data-theme="atelier"] h1,
+      [data-theme="atelier"] h2,
+      [data-theme="atelier"] h3,
+      [data-theme="atelier"] h4,
+      [data-theme="signal"] h1,
+      [data-theme="signal"] h2,
+      [data-theme="signal"] h3,
+      [data-theme="signal"] h4 {
+        text-transform: var(--type-transform);
+        letter-spacing: var(--type-tracking);
+      }
+
+      html[data-theme="signal"] body {
+        background-image:
+          repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            oklch(0% 0 0 / 0.15) 2px,
+            oklch(0% 0 0 / 0.15) 3px
+          ),
+          radial-gradient(ellipse 80% 50% at 90% -5%, var(--bg-glow-1), transparent 55%),
+          radial-gradient(ellipse 60% 40% at -5% 40%, var(--bg-glow-2), transparent 50%),
+          var(--bg);
+      }
+
+      html[data-theme="atelier"] .hero {
+        grid-template-columns: 0.85fr 1.15fr;
+        border-top: 4px solid var(--tx);
+        border-bottom: 4px solid var(--tx);
+        padding-block: 56px;
+      }
+
+      html[data-theme="atelier"] .hero > div:first-child {
+        order: 2;
+      }
+
+      html[data-theme="atelier"] h1 {
+        font-size: clamp(2.8rem, 7vw, 5rem);
+        line-height: 0.92;
+        max-width: 10ch;
+      }
+
+      html[data-theme="atelier"] .card,
+      html[data-theme="atelier"] .hero-card,
+      html[data-theme="atelier"] .product-card {
+        border-width: 2px;
+      }
+
+      html[data-theme="atelier"] .section-title {
+        border-left: 8px solid var(--brand);
+        padding-left: 16px;
+      }
+
+      html[data-theme="signal"] .hero {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+
+      html[data-theme="signal"] h1 {
+        font-size: clamp(1.8rem, 4vw, 2.6rem);
+        line-height: 1.25;
+        border-left: 3px solid var(--brand);
+        padding-left: 16px;
+      }
+
+      html[data-theme="signal"] .card,
+      html[data-theme="signal"] .hero-card,
+      html[data-theme="signal"] .product-card {
+        border-style: dashed;
+        box-shadow: inset 0 0 0 1px oklch(78% 0.22 145 / 0.2);
+      }
+
+      html[data-theme="prism"] .hero {
+        gap: 36px;
+      }
+
+      html[data-theme="prism"] .hero-card,
+      html[data-theme="prism"] .card,
+      html[data-theme="prism"] .product-card {
+        transform: rotate(-0.6deg);
+        backdrop-filter: blur(18px) saturate(1.3);
+      }
+
+      html[data-theme="prism"] .product-card:nth-child(even) {
+        transform: rotate(0.7deg);
+      }
+
+      html[data-theme="prism"] h1 {
+        font-size: clamp(2.6rem, 5.5vw, 4.2rem);
+        letter-spacing: var(--type-tracking);
       }
 
       p { text-wrap: pretty; }
@@ -361,10 +465,10 @@
       }
 
       .theme-btn[data-theme="luminous"] { background: linear-gradient(135deg, oklch(98% 0.01 85), oklch(58% 0.18 255)); }
-      .theme-btn[data-theme="midnight"] { background: linear-gradient(135deg, oklch(14% 0.02 265), oklch(72% 0.14 255)); }
-      .theme-btn[data-theme="editorial"] { background: linear-gradient(135deg, oklch(97% 0.01 75), oklch(38% 0.14 25)); }
+      .theme-btn[data-theme="signal"] { background: linear-gradient(135deg, oklch(12% 0.03 145), oklch(78% 0.22 145)); }
+      .theme-btn[data-theme="atelier"] { background: linear-gradient(135deg, white 55%, oklch(48% 0.24 25) 55%); border: 1px solid black; border-radius: 0; }
       .theme-btn[data-theme="brutalist"] { background: linear-gradient(135deg, white 50%, oklch(88% 0.2 105) 50%); border: 1px solid black; }
-      .theme-btn[data-theme="ocean"] { background: linear-gradient(135deg, oklch(97% 0.015 230), oklch(55% 0.14 200)); }
+      .theme-btn[data-theme="prism"] { background: conic-gradient(from 210deg, oklch(72% 0.2 330), oklch(75% 0.18 200), oklch(85% 0.16 95), oklch(72% 0.2 330)); }
 
       .btn {
         display: inline-flex;
@@ -389,6 +493,29 @@
         background: var(--brand);
         border: 2px solid var(--tx);
         box-shadow: var(--shadow);
+      }
+
+      [data-theme="atelier"] .btn-primary {
+        background: var(--brand);
+        border: 2px solid var(--tx);
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      [data-theme="signal"] .btn-primary {
+        background: var(--brand);
+        color: var(--btn-text);
+        border: 1px solid var(--brand);
+        border-radius: 2px;
+        box-shadow: 0 0 18px var(--btn-shadow);
+        font-family: var(--font-body);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+
+      [data-theme="prism"] .btn-primary {
+        background: linear-gradient(120deg, var(--brand), var(--brand-2));
+        border-radius: 999px;
       }
 
       .btn-primary:hover {
@@ -785,10 +912,10 @@
         <fieldset class="theme-switcher" id="theme-switcher">
           <legend>Seleccionar tema visual</legend>
           <button class="theme-btn" type="button" data-theme="luminous" aria-pressed="true" title="Luminous — SaaS moderno"></button>
-          <button class="theme-btn" type="button" data-theme="midnight" aria-pressed="false" title="Midnight — Dark mode Vercel"></button>
-          <button class="theme-btn" type="button" data-theme="editorial" aria-pressed="false" title="Editorial — Revista premium"></button>
-          <button class="theme-btn" type="button" data-theme="brutalist" aria-pressed="false" title="Brutalist — Alto contraste"></button>
-          <button class="theme-btn" type="button" data-theme="ocean" aria-pressed="false" title="Ocean — Calma Notion"></button>
+          <button class="theme-btn" type="button" data-theme="signal" aria-pressed="false" title="Signal — terminal fósforo"></button>
+          <button class="theme-btn" type="button" data-theme="atelier" aria-pressed="false" title="Atelier — cartel suizo"></button>
+          <button class="theme-btn" type="button" data-theme="brutalist" aria-pressed="false" title="Brutalist — alto contraste"></button>
+          <button class="theme-btn" type="button" data-theme="prism" aria-pressed="false" title="Prism — crómica inclinada"></button>
         </fieldset>
         <a class="btn btn-primary" href="#contacto">Hablemos</a>
       </div>
@@ -895,7 +1022,7 @@
             </ul>
             <div class="hero-actions">
               <a class="btn btn-primary" href="estudia.html">Saber más</a>
-              <a class="btn btn-ghost" href="http://10.10.10.1:3005" target="_blank" rel="noopener">Acceder</a>
+              <a class="btn btn-ghost" href="https://10.10.10.1:3005" target="_blank" rel="noopener">Acceder</a>
             </div>
           </div>
           <div class="product-visual product-visual--gallery">
@@ -1001,11 +1128,13 @@
   <script>
     (function () {
       var STORAGE_KEY = "zatiki-theme";
-      var THEMES = ["luminous", "midnight", "editorial", "brutalist", "ocean"];
+      var THEMES = ["luminous", "signal", "atelier", "brutalist", "prism"];
+      var LEGACY = { midnight: "signal", editorial: "atelier", ocean: "prism" };
       var root = document.documentElement;
       var buttons = document.querySelectorAll(".theme-btn");
 
       function applyTheme(name) {
+        if (LEGACY[name]) name = LEGACY[name];
         if (THEMES.indexOf(name) === -1) name = "luminous";
         root.setAttribute("data-theme", name);
         buttons.forEach(function (btn) {

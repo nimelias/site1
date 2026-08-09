@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es" data-theme="luminous">
+<html lang="es" data-theme="nocturne">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,7 +7,7 @@
   <meta name="description" content="Zatiki Labs: ingeniería digital con IA y open source para organizaciones con requisitos exigentes. Experiencia en entornos industriales y productos propios de alto impacto.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Fraunces:ital,opsz,wght@9..144,500;9..144,700;9..144,800&family=IBM+Plex+Mono:wght@400;500;600;700&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Grotesk:wght@500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Fraunces:ital,opsz,wght@9..144,500;9..144,700;9..144,800&family=IBM+Plex+Mono:wght@400;500;600;700&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Grotesk:wght@500;600;700&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet">
   <style>
     @layer reset, tokens, base, layout, components, utilities;
 
@@ -16,6 +16,18 @@
         syntax: "<angle>";
         inherits: false;
         initial-value: 0deg;
+      }
+
+      @property --aurora-shift {
+        syntax: "<percentage>";
+        inherits: false;
+        initial-value: 0%;
+      }
+
+      @property --mesh-hue {
+        syntax: "<number>";
+        inherits: false;
+        initial-value: 200;
       }
 
       :root,
@@ -49,9 +61,15 @@
         --btn-text: white;
         --header-bg: color-mix(in oklch, var(--surface) 82%, transparent);
         --glow-angle: 0deg;
+        --aurora-shift: 0%;
+        --mesh-hue: 200;
+        --atmosphere: none;
+        --atmosphere-grain-opacity: 0;
         --layout-hero: "default";
         --type-tracking: -0.02em;
         --type-transform: none;
+        --btn-radius: var(--radius);
+        --logo-gradient: none;
       }
 
       [data-theme="signal"] {
@@ -185,9 +203,51 @@
         --heading-gradient: linear-gradient(110deg, oklch(97% 0.01 100), oklch(72% 0.2 330) 45%, oklch(75% 0.18 200));
         --btn-text: oklch(12% 0.02 300);
         --header-bg: color-mix(in oklch, var(--bg) 70%, transparent);
+        --atmosphere: block;
+        --atmosphere-grain-opacity: 0.12;
         --layout-hero: "skew";
         --type-tracking: -0.03em;
         --type-transform: none;
+        --btn-radius: 999px;
+      }
+
+      /* Nocturne — atmósfera tipo estudIA /login (aurora + grain + orbs) */
+      [data-theme="nocturne"] {
+        color-scheme: dark;
+        --bg: oklch(14% 0.03 240);
+        --bg-soft: oklch(18% 0.035 235);
+        --surface: oklch(20% 0.03 240 / 0.55);
+        --tx: oklch(92% 0.02 230);
+        --muted: oklch(72% 0.03 230);
+        --brand: oklch(78% 0.14 175);
+        --brand-2: oklch(82% 0.12 85);
+        --accent: oklch(78% 0.14 175);
+        --line: oklch(55% 0.06 220 / 0.35);
+        --shadow: 0 18px 40px oklch(10% 0.04 240 / 0.45);
+        --shadow-lg: 0 28px 60px oklch(8% 0.05 240 / 0.55);
+        --radius: 20px;
+        --font-display: "Instrument Serif", ui-serif, Georgia, serif;
+        --font-body: "Plus Jakarta Sans", system-ui, sans-serif;
+        --bg-glow-1: transparent;
+        --bg-glow-2: transparent;
+        --card-overlay: linear-gradient(160deg, oklch(45% 0.1 185 / 0.12), oklch(40% 0.08 85 / 0.06));
+        --product-glow: oklch(45% 0.14 185 / 0.22);
+        --badge-bg: oklch(30% 0.06 175 / 0.35);
+        --badge-border: oklch(70% 0.08 175 / 0.35);
+        --cta-bg: linear-gradient(135deg, oklch(28% 0.06 200 / 0.5), oklch(26% 0.08 160 / 0.4));
+        --btn-shadow: oklch(10% 0.04 240 / 0.45);
+        --btn-shadow-hover: oklch(12% 0.05 240 / 0.55);
+        --logo-glow: oklch(78% 0.14 175 / 0.55);
+        --heading-gradient: none;
+        --btn-text: oklch(18% 0.03 240);
+        --header-bg: color-mix(in oklch, var(--bg) 72%, transparent);
+        --atmosphere: block;
+        --atmosphere-grain-opacity: 0.18;
+        --layout-hero: "nocturne";
+        --type-tracking: -0.02em;
+        --type-transform: none;
+        --btn-radius: 999px;
+        --logo-gradient: linear-gradient(120deg, oklch(96% 0.02 230), var(--brand) 55%, var(--brand-2));
       }
 
       :root {
@@ -212,6 +272,80 @@
         text-rendering: optimizeLegibility;
         -webkit-font-smoothing: antialiased;
         transition: background 400ms ease, color 300ms ease;
+        position: relative;
+        isolation: isolate;
+      }
+
+      .atmosphere {
+        display: var(--atmosphere, none);
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        overflow: hidden;
+      }
+
+      .atmosphere-aurora {
+        position: absolute;
+        inset: -20%;
+        background:
+          radial-gradient(ellipse 50% 40% at calc(20% + var(--aurora-shift)) 30%, oklch(35% 0.12 200 / 0.45), transparent 60%),
+          radial-gradient(ellipse 45% 35% at calc(80% - var(--aurora-shift)) 20%, oklch(32% 0.1 250 / 0.4), transparent 55%),
+          radial-gradient(ellipse 55% 45% at 60% calc(80% - var(--aurora-shift)), oklch(28% 0.14 160 / 0.35), transparent 60%);
+        animation: aurora-drift 18s ease-in-out infinite alternate;
+      }
+
+      [data-theme="prism"] .atmosphere-aurora {
+        background:
+          radial-gradient(ellipse 50% 40% at calc(15% + var(--aurora-shift)) 25%, oklch(45% 0.2 330 / 0.4), transparent 60%),
+          radial-gradient(ellipse 45% 35% at calc(85% - var(--aurora-shift)) 15%, oklch(42% 0.16 200 / 0.35), transparent 55%),
+          radial-gradient(ellipse 55% 45% at 55% 75%, oklch(48% 0.14 95 / 0.25), transparent 60%);
+      }
+
+      .atmosphere-grain {
+        position: absolute;
+        inset: 0;
+        opacity: var(--atmosphere-grain-opacity, 0);
+        mix-blend-mode: overlay;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+      }
+
+      .atmosphere-orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(40px);
+        opacity: 0.55;
+      }
+
+      .atmosphere-orb-a {
+        width: min(42vw, 28rem);
+        height: min(42vw, 28rem);
+        top: -8%;
+        right: -6%;
+        background: oklch(45% 0.16 185 / 0.5);
+        animation: aurora-drift 22s ease-in-out infinite alternate-reverse;
+      }
+
+      .atmosphere-orb-b {
+        width: min(36vw, 22rem);
+        height: min(36vw, 22rem);
+        bottom: 5%;
+        left: -8%;
+        background: oklch(40% 0.12 85 / 0.35);
+        animation: aurora-drift 16s ease-in-out infinite alternate;
+      }
+
+      [data-theme="prism"] .atmosphere-orb-a {
+        background: oklch(55% 0.22 330 / 0.45);
+      }
+
+      [data-theme="prism"] .atmosphere-orb-b {
+        background: oklch(50% 0.18 200 / 0.4);
+      }
+
+      @keyframes aurora-drift {
+        from { transform: translate3d(0, 0, 0) scale(1); --aurora-shift: 0%; }
+        to { transform: translate3d(2%, 3%, 0) scale(1.04); --aurora-shift: 8%; }
       }
 
       a { color: inherit; text-decoration: none; }
@@ -220,6 +354,14 @@
         font-family: var(--font-display);
         font-weight: 700;
         text-wrap: balance;
+      }
+
+      [data-theme="nocturne"] h1,
+      [data-theme="nocturne"] h2,
+      [data-theme="nocturne"] h3,
+      [data-theme="nocturne"] h4 {
+        font-weight: 400;
+        letter-spacing: var(--type-tracking);
       }
 
       [data-theme="luminous"] h1,
@@ -257,6 +399,10 @@
           radial-gradient(ellipse 80% 50% at 90% -5%, var(--bg-glow-1), transparent 55%),
           radial-gradient(ellipse 60% 40% at -5% 40%, var(--bg-glow-2), transparent 50%),
           var(--bg);
+      }
+
+      html[data-theme="nocturne"] body {
+        background: var(--bg);
       }
 
       html[data-theme="atelier"] .hero {
@@ -326,6 +472,33 @@
         letter-spacing: var(--type-tracking);
       }
 
+      html[data-theme="nocturne"] .hero-card,
+      html[data-theme="nocturne"] .card,
+      html[data-theme="nocturne"] .product-card,
+      html[data-theme="nocturne"] .kpi,
+      html[data-theme="nocturne"] .cta {
+        backdrop-filter: blur(20px) saturate(1.2);
+        background: color-mix(in oklch, var(--surface) 88%, transparent);
+        border-color: color-mix(in oklch, var(--line) 80%, var(--brand));
+      }
+
+      html[data-theme="nocturne"] h1 {
+        font-size: clamp(2.2rem, 5vw, 3.4rem);
+        line-height: 1.12;
+        color: var(--tx);
+        background: none;
+        -webkit-text-fill-color: var(--tx);
+      }
+
+      html[data-theme="nocturne"] .lead {
+        font-size: 1.05rem;
+        line-height: 1.55;
+      }
+
+      html[data-theme="nocturne"] .section-title {
+        font-size: clamp(1.8rem, 3vw, 2.4rem);
+      }
+
       p { text-wrap: pretty; }
     }
 
@@ -385,6 +558,19 @@
         align-items: center;
       }
 
+      [data-theme="nocturne"] .logo {
+        font-family: Syne, "Plus Jakarta Sans", sans-serif;
+        font-weight: 800;
+        letter-spacing: -0.04em;
+      }
+
+      [data-theme="nocturne"] .logo > span:last-child {
+        background: var(--logo-gradient);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
       .logo-dot {
         width: 11px;
         height: 11px;
@@ -440,8 +626,8 @@
       }
 
       .theme-btn {
-        width: 26px;
-        height: 26px;
+        width: 22px;
+        height: 22px;
         padding: 0;
         border: 2px solid transparent;
         border-radius: 50%;
@@ -469,6 +655,7 @@
       .theme-btn[data-theme="atelier"] { background: linear-gradient(135deg, white 55%, oklch(48% 0.24 25) 55%); border: 1px solid black; border-radius: 0; }
       .theme-btn[data-theme="brutalist"] { background: linear-gradient(135deg, white 50%, oklch(88% 0.2 105) 50%); border: 1px solid black; }
       .theme-btn[data-theme="prism"] { background: conic-gradient(from 210deg, oklch(72% 0.2 330), oklch(75% 0.18 200), oklch(85% 0.16 95), oklch(72% 0.2 330)); }
+      .theme-btn[data-theme="nocturne"] { background: linear-gradient(135deg, oklch(14% 0.03 240), oklch(78% 0.14 175) 55%, oklch(82% 0.12 85)); }
 
       .btn {
         display: inline-flex;
@@ -476,7 +663,7 @@
         justify-content: center;
         min-height: 44px;
         padding: 0 20px;
-        border-radius: var(--radius);
+        border-radius: var(--btn-radius, var(--radius));
         border: 1px solid transparent;
         font-weight: 600;
         font-size: 0.95rem;
@@ -487,6 +674,29 @@
         background: linear-gradient(135deg, var(--brand), var(--brand-2));
         color: var(--btn-text);
         box-shadow: 0 8px 24px var(--btn-shadow);
+      }
+
+      [data-theme="nocturne"] .btn-primary {
+        background: oklch(98% 0.01 230);
+        color: var(--btn-text);
+        border: 1px solid oklch(70% 0.08 175 / 0.35);
+        box-shadow:
+          0 0 0 1px oklch(80% 0.1 175 / 0.15),
+          0 18px 40px var(--btn-shadow);
+        font-family: Syne, "Plus Jakarta Sans", sans-serif;
+        letter-spacing: -0.01em;
+      }
+
+      [data-theme="nocturne"] .btn-primary:hover {
+        filter: none;
+        box-shadow:
+          0 0 0 1px oklch(85% 0.12 175 / 0.35),
+          0 22px 48px var(--btn-shadow-hover);
+      }
+
+      [data-theme="nocturne"] .btn-ghost {
+        border-color: oklch(70% 0.08 175 / 0.28);
+        background: color-mix(in oklch, var(--bg) 40%, transparent);
       }
 
       [data-theme="brutalist"] .btn-primary {
@@ -547,7 +757,7 @@
         letter-spacing: -0.03em;
       }
 
-      html:not([data-theme="brutalist"]) h1 {
+      html:not([data-theme="brutalist"]):not([data-theme="nocturne"]) h1 {
         background: var(--heading-gradient);
         -webkit-background-clip: text;
         background-clip: text;
@@ -890,12 +1100,20 @@
       @media (prefers-reduced-motion: reduce) {
         .logo-dot { animation: none; }
         .reveal { animation: none; }
+        .atmosphere-aurora,
+        .atmosphere-orb { animation: none; }
         .card, .kpi, .btn-primary, body { transition: none; }
       }
     }
   </style>
 </head>
 <body>
+  <div class="atmosphere" aria-hidden="true">
+    <div class="atmosphere-aurora"></div>
+    <div class="atmosphere-grain"></div>
+    <div class="atmosphere-orb atmosphere-orb-a"></div>
+    <div class="atmosphere-orb atmosphere-orb-b"></div>
+  </div>
   <header>
     <div class="wrap nav">
       <a class="logo" href="#">
@@ -911,7 +1129,8 @@
       <div class="nav-end">
         <fieldset class="theme-switcher" id="theme-switcher">
           <legend>Seleccionar tema visual</legend>
-          <button class="theme-btn" type="button" data-theme="luminous" aria-pressed="true" title="Luminous — SaaS moderno"></button>
+          <button class="theme-btn" type="button" data-theme="nocturne" aria-pressed="true" title="Nocturne — aurora estudio (CSS moderno)"></button>
+          <button class="theme-btn" type="button" data-theme="luminous" aria-pressed="false" title="Luminous — SaaS moderno"></button>
           <button class="theme-btn" type="button" data-theme="signal" aria-pressed="false" title="Signal — terminal fósforo"></button>
           <button class="theme-btn" type="button" data-theme="atelier" aria-pressed="false" title="Atelier — cartel suizo"></button>
           <button class="theme-btn" type="button" data-theme="brutalist" aria-pressed="false" title="Brutalist — alto contraste"></button>
@@ -1128,14 +1347,14 @@
   <script>
     (function () {
       var STORAGE_KEY = "zatiki-theme";
-      var THEMES = ["luminous", "signal", "atelier", "brutalist", "prism"];
+      var THEMES = ["nocturne", "luminous", "signal", "atelier", "brutalist", "prism"];
       var LEGACY = { midnight: "signal", editorial: "atelier", ocean: "prism" };
       var root = document.documentElement;
       var buttons = document.querySelectorAll(".theme-btn");
 
       function applyTheme(name) {
         if (LEGACY[name]) name = LEGACY[name];
-        if (THEMES.indexOf(name) === -1) name = "luminous";
+        if (THEMES.indexOf(name) === -1) name = "nocturne";
         root.setAttribute("data-theme", name);
         buttons.forEach(function (btn) {
           btn.setAttribute("aria-pressed", btn.dataset.theme === name ? "true" : "false");

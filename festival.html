@@ -4,18 +4,17 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Pulse Lab — Zatiki Labs</title>
-  <meta name="description" content="Demo estilo Dantz Festival: vídeo con scrub, tipografía blur/glitch y line-up editorial.">
+  <meta name="description" content="Demo estilo festival: fondo generativo, tipografía blur/glitch y line-up editorial.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/festival.css">
 </head>
 <body>
-  <div class="bg-video" aria-hidden="true">
-    <video id="bgVideo" muted playsinline preload="auto" loop>
-      <source src="assets/festival/texture-main.mp4" type="video/mp4">
-    </video>
-    <canvas id="glitch-overlay"></canvas>
+  <div class="bg-gen" aria-hidden="true">
+    <canvas id="bg-canvas"></canvas>
+    <div class="bg-scan"></div>
+    <div class="bg-noise"></div>
   </div>
   <div class="bg-vignette" aria-hidden="true"></div>
 
@@ -160,7 +159,7 @@
         </div>
         <div class="info-cell">
           <h2 class="estilo-2026 estilo-2026-xs"><span class="splitspan">Nota</span></h2>
-          <p>Demo visual inspirada en Dantz Festival 2026: vídeo de textura, tipografía con blur y ruido local. Contenido ficticio.</p>
+          <p>Demo visual: fondo generativo (canvas), tipografía con blur/GSAP y ruido. Contenido ficticio.</p>
         </div>
       </section>
 
@@ -180,7 +179,7 @@
       <a href="index.html">Volver al sitio principal</a>
     </footer>
 
-    <p class="demo-note">Fondo y lógica adaptados de <a href="https://dantz.eu/festival/" rel="noopener">dantz.eu/festival</a> (vídeo + GSAP). Uso demostrativo.</p>
+    <p class="demo-note">Estilo inspirado en <a href="https://dantz.eu/festival/" rel="noopener">dantz.eu/festival</a>. Fondo generativo + GSAP. Uso demostrativo.</p>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>

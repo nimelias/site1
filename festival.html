@@ -4,1034 +4,186 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Pulse Lab — Zatiki Labs</title>
-  <meta name="description" content="Demostración de estilo festival brutalista: tipografía en cinta, columnas editoriales y fondo glitch. Zatiki Labs.">
+  <meta name="description" content="Demo estilo Dantz Festival: vídeo con scrub, tipografía blur/glitch y line-up editorial.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,500;0,600;0,700;0,800;0,900;1,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; }
-
-    :root {
-      --ink: #0a0a0a;
-      --paper: #f4f0e8;
-      --mute: #5c564c;
-      --bar-h: 2.75rem;
-      --util-h: 2.125rem;
-      --header-total: calc(var(--bar-h) + var(--util-h));
-      --font-display: "Barlow Condensed", "Arial Narrow", sans-serif;
-      --font-mono: "IBM Plex Mono", ui-monospace, monospace;
-      --tape-pad-x: 0.28em;
-      --tape-pad-y: 0.06em;
-      --col-gap: clamp(1rem, 3vw, 2.5rem);
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: var(--font-display);
-      font-weight: 700;
-      color: var(--ink);
-      background: var(--paper);
-      text-transform: uppercase;
-      letter-spacing: 0.02em;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    .bg-wrap {
-      position: fixed;
-      inset: 0;
-      z-index: -2;
-      overflow: hidden;
-      background: #c8b8a4;
-    }
-
-    #glitch-canvas {
-      position: absolute;
-      inset: -10%;
-      width: 120%;
-      height: 120%;
-      object-fit: cover;
-      image-rendering: pixelated;
-      filter: contrast(1.2) saturate(0.9);
-      transform: scaleX(1.08);
-      will-change: transform;
-    }
-
-    .bg-rgb {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      mix-blend-mode: screen;
-      opacity: 0;
-      background: linear-gradient(90deg, rgb(255 0 0 / 0.12), transparent 40%, transparent 60%, rgb(0 255 255 / 0.1));
-    }
-
-    .bg-wrap.is-glitch .bg-rgb {
-      animation: rgb-split 0.12s steps(2) 1;
-    }
-
-    @keyframes rgb-split {
-      0% { opacity: 0; transform: translateX(0); }
-      50% { opacity: 1; transform: translateX(-6px); }
-      100% { opacity: 0; transform: translateX(5px); }
-    }
-
-    .bg-flash {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background: #fff;
-      opacity: 0;
-    }
-
-    .bg-wrap.is-glitch .bg-flash {
-      animation: flash-cut 0.08s steps(1) 1;
-    }
-
-    @keyframes flash-cut {
-      0%, 100% { opacity: 0; }
-      50% { opacity: 0.06; }
-    }
-
-    .bg-noise {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      opacity: 0.35;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
-      animation: noise-shift 0.5s steps(4) infinite;
-    }
-
-    @keyframes noise-shift {
-      to { transform: translate3d(-2%, -1%, 0); }
-    }
-
-    .glitch-title.is-hit {
-      transform: translateX(var(--glitch-x, 0));
-      transition: none;
-    }
-
-    .bg-scan {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgb(0 0 0 / 0.04) 2px,
-        rgb(0 0 0 / 0.04) 3px
-      );
-      mix-blend-mode: multiply;
-    }
-
-    .bg-vignette {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background:
-        radial-gradient(ellipse 90% 70% at 50% 40%, transparent 30%, rgb(0 0 0 / 0.35) 100%);
-    }
-
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-    }
-
-    .bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      padding: 0 clamp(0.75rem, 3vw, 2rem);
-      min-height: var(--bar-h);
-    }
-
-    .bar--black {
-      background: var(--ink);
-      color: #fff;
-      font-size: clamp(0.65rem, 1.6vw, 0.72rem);
-      font-weight: 600;
-      letter-spacing: 0.14em;
-    }
-
-    .bar--white {
-      background: #fff;
-      color: var(--ink);
-      min-height: var(--util-h);
-      font-family: var(--font-mono);
-      font-size: 0.62rem;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      border-bottom: 1px solid var(--ink);
-    }
-
-    .logo {
-      display: inline-flex;
-      align-items: baseline;
-      gap: 0.35rem;
-      color: inherit;
-      text-decoration: none;
-      font-size: clamp(1.35rem, 3.5vw, 1.85rem);
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      text-transform: none;
-    }
-
-    .logo em {
-      font-style: normal;
-      opacity: 0.55;
-      font-weight: 600;
-    }
-
-    .nav-main {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-      gap: clamp(0.5rem, 2vw, 1.75rem);
-    }
-
-    .nav-main a {
-      color: inherit;
-      text-decoration: none;
-      transition: opacity 120ms ease;
-    }
-
-    .nav-main a:hover,
-    .nav-main a[aria-current="page"] {
-      opacity: 0.55;
-    }
-
-    .util-left,
-    .util-right {
-      display: flex;
-      align-items: center;
-      gap: 0.65rem;
-      flex-wrap: wrap;
-    }
-
-    .util-left a {
-      color: var(--mute);
-      text-decoration: none;
-    }
-
-    .util-left a[aria-current="true"] {
-      color: var(--ink);
-      text-decoration: underline;
-      text-underline-offset: 3px;
-    }
-
-    .util-right a {
-      color: var(--ink);
-      text-decoration: none;
-    }
-
-    .util-right a:hover {
-      text-decoration: underline;
-      text-underline-offset: 3px;
-    }
-
-    .tape {
-      display: inline;
-      box-decoration-break: clone;
-      -webkit-box-decoration-break: clone;
-      background: var(--ink);
-      color: #fff;
-      padding: var(--tape-pad-y) var(--tape-pad-x);
-      line-height: 1.32;
-    }
-
-    .tape--lg {
-      font-size: clamp(2.4rem, 7.5vw, 5.5rem);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      line-height: 1.05;
-    }
-
-    .tape--md {
-      font-size: clamp(1.35rem, 3.2vw, 2.35rem);
-      font-weight: 800;
-      letter-spacing: -0.02em;
-    }
-
-    .tape--sm {
-      font-size: clamp(0.95rem, 2vw, 1.25rem);
-      font-weight: 700;
-    }
-
-    .tape--invert {
-      background: #fff;
-      color: var(--ink);
-      outline: 2px solid var(--ink);
-      outline-offset: -2px;
-    }
-
-    .stack-tape {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 3px;
-    }
-
-    .stack-tape > * {
-      display: inline-block;
-      background: var(--ink);
-      color: #fff;
-      padding: 0.12em 0.32em 0.14em;
-      width: max-content;
-      max-width: 100%;
-      transition: transform 180ms ease, background 180ms ease;
-    }
-
-    .stack-tape a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .stack-tape > *:hover {
-      transform: translateX(4px);
-      background: #1a1a1a;
-    }
-
-    .stack-tape .tape--lg {
-      font-size: clamp(2.4rem, 7.5vw, 5.5rem);
-      letter-spacing: -0.03em;
-      line-height: 1.02;
-      padding-block: 0.02em;
-    }
-
-    .stack-tape .tape--md {
-      font-size: clamp(1.35rem, 3.2vw, 2.35rem);
-      letter-spacing: -0.02em;
-    }
-
-    .stack-tape .tape--sm {
-      font-size: clamp(0.95rem, 2vw, 1.25rem);
-    }
-
-    .stack-tape--tight {
-      gap: 2px;
-    }
-
-    .stack-tape--wide > * {
-      padding-inline: 0.45em;
-    }
-
-    .marquee-wrap {
-      border-block: 3px solid var(--ink);
-      background: #fff;
-      overflow: hidden;
-    }
-
-    .marquee {
-      display: flex;
-      width: max-content;
-      animation: marquee 28s linear infinite;
-      font-size: clamp(0.75rem, 1.8vw, 0.95rem);
-      font-weight: 800;
-      letter-spacing: 0.12em;
-      padding: 0.65rem 0;
-    }
-
-    .marquee span {
-      padding-inline: 2rem;
-      white-space: nowrap;
-    }
-
-    .marquee span::after {
-      content: "◆";
-      margin-left: 2rem;
-      opacity: 0.35;
-    }
-
-    @keyframes marquee {
-      from { transform: translateX(0); }
-      to { transform: translateX(-50%); }
-    }
-
-    .stage {
-      position: relative;
-      padding: clamp(1.5rem, 4vw, 3rem) clamp(0.75rem, 3vw, 2rem) clamp(4rem, 10vw, 7rem);
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr) minmax(0, 1.1fr);
-      gap: var(--col-gap);
-      align-items: start;
-    }
-
-    .hero-meta {
-      font-size: clamp(0.85rem, 1.6vw, 1rem);
-      line-height: 1.45;
-      max-width: 22ch;
-    }
-
-    .hero-meta p {
-      margin: 0 0 0.75rem;
-    }
-
-    .hero-meta .tape--sm {
-      display: inline;
-    }
-
-    .col-center {
-      padding-top: clamp(2rem, 8vw, 6rem);
-    }
-
-    .col-right {
-      padding-top: clamp(0.5rem, 2vw, 1.5rem);
-    }
-
-    .lineup-section {
-      margin-top: clamp(3rem, 8vw, 6rem);
-    }
-
-    .lineup-head {
-      margin-bottom: clamp(1.25rem, 3vw, 2rem);
-    }
-
-    .lineup-columns {
-      column-count: 3;
-      column-gap: var(--col-gap);
-    }
-
-    .lineup-columns .stack-tape {
-      break-inside: avoid;
-      margin-bottom: clamp(1.25rem, 3vw, 2rem);
-    }
-
-    .lineup-columns .stack-tape > * {
-      font-size: clamp(1.05rem, 2.4vw, 1.65rem);
-      font-weight: 800;
-      letter-spacing: -0.01em;
-    }
-
-    .lineup-columns .role {
-      font-family: var(--font-mono);
-      font-size: 0.58rem;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      background: transparent !important;
-      color: var(--ink);
-      padding: 0.25em 0 0;
-      transform: none !important;
-    }
-
-    .info-band {
-      margin-top: clamp(3rem, 8vw, 5rem);
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 0;
-      border: 3px solid var(--ink);
-      background: rgb(255 255 255 / 0.92);
-      backdrop-filter: blur(6px);
-    }
-
-    .info-cell {
-      padding: clamp(1rem, 2.5vw, 1.75rem);
-      border-right: 2px solid var(--ink);
-    }
-
-    .info-cell:last-child {
-      border-right: none;
-    }
-
-    .info-cell h2 {
-      margin: 0 0 0.75rem;
-      font-size: clamp(1rem, 2vw, 1.35rem);
-    }
-
-    .info-cell p,
-    .info-cell ul {
-      margin: 0;
-      font-family: var(--font-mono);
-      font-size: 0.68rem;
-      font-weight: 400;
-      line-height: 1.55;
-      text-transform: none;
-      letter-spacing: 0;
-    }
-
-    .info-cell ul {
-      padding-left: 1.1em;
-    }
-
-    .cta-block {
-      margin-top: clamp(2.5rem, 6vw, 4rem);
-      display: flex;
-      flex-wrap: wrap;
-      align-items: stretch;
-      gap: 0;
-      border: 3px solid var(--ink);
-    }
-
-    .cta-block > div {
-      flex: 1 1 280px;
-      padding: clamp(1.25rem, 3vw, 2rem);
-      background: var(--ink);
-      color: #fff;
-    }
-
-    .cta-block > div h2 {
-      margin: 0;
-      font-size: clamp(1.8rem, 4vw, 3rem);
-      line-height: 1;
-      letter-spacing: -0.02em;
-    }
-
-    .cta-block > div p {
-      margin: 0.75rem 0 0;
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      font-weight: 400;
-      text-transform: none;
-      letter-spacing: 0;
-      max-width: 40ch;
-      opacity: 0.85;
-    }
-
-    .cta-action {
-      flex: 0 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-width: min(100%, 14rem);
-      background: #fff;
-      border-left: 3px solid var(--ink);
-    }
-
-    .btn-ticket {
-      display: inline-block;
-      padding: 1rem 2rem;
-      background: var(--ink);
-      color: #fff;
-      text-decoration: none;
-      font-size: clamp(1rem, 2vw, 1.35rem);
-      font-weight: 900;
-      letter-spacing: 0.06em;
-      transition: background 150ms ease, color 150ms ease;
-    }
-
-    .btn-ticket:hover {
-      background: #fff;
-      color: var(--ink);
-      outline: 3px solid var(--ink);
-      outline-offset: -3px;
-    }
-
-    .site-footer {
-      border-top: 3px solid var(--ink);
-      background: var(--ink);
-      color: #fff;
-      padding: 1rem clamp(0.75rem, 3vw, 2rem);
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 0.75rem;
-      font-family: var(--font-mono);
-      font-size: 0.62rem;
-      font-weight: 400;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
-
-    .site-footer a {
-      color: #fff;
-    }
-
-    .demo-note {
-      position: fixed;
-      bottom: 0.75rem;
-      right: 0.75rem;
-      z-index: 40;
-      max-width: 14rem;
-      padding: 0.5rem 0.65rem;
-      background: rgb(255 255 255 / 0.92);
-      border: 2px solid var(--ink);
-      font-family: var(--font-mono);
-      font-size: 0.55rem;
-      font-weight: 400;
-      text-transform: none;
-      letter-spacing: 0;
-      line-height: 1.4;
-    }
-
-    .demo-note a {
-      color: var(--ink);
-    }
-
-    @media (max-width: 900px) {
-      .hero-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .col-center {
-        grid-column: 1 / -1;
-        padding-top: 0;
-      }
-
-      .lineup-columns {
-        column-count: 2;
-      }
-
-      .info-band {
-        grid-template-columns: 1fr;
-      }
-
-      .info-cell {
-        border-right: none;
-        border-bottom: 2px solid var(--ink);
-      }
-
-      .info-cell:last-child {
-        border-bottom: none;
-      }
-
-      .nav-main {
-        display: none;
-      }
-    }
-
-    @media (max-width: 560px) {
-      .hero-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .lineup-columns {
-        column-count: 1;
-      }
-
-      .util-left {
-        display: none;
-      }
-
-      .demo-note {
-        position: static;
-        margin: 1rem;
-        max-width: none;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .marquee {
-        animation: none;
-        flex-wrap: wrap;
-        width: auto;
-        justify-content: center;
-      }
-
-      .stack-tape > *:hover {
-        transform: none;
-      }
-
-      html {
-        scroll-behavior: auto;
-      }
-
-      .bg-noise {
-        animation: none;
-      }
-
-      .bg-wrap.is-glitch .bg-rgb,
-      .bg-wrap.is-glitch .bg-flash {
-        animation: none;
-      }
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/festival.css">
 </head>
 <body>
-  <div class="bg-wrap" id="bg-wrap" aria-hidden="true">
-    <canvas id="glitch-canvas"></canvas>
-    <div class="bg-rgb"></div>
-    <div class="bg-flash"></div>
-    <div class="bg-scan"></div>
-    <div class="bg-noise"></div>
-    <div class="bg-vignette"></div>
+  <div class="bg-video" aria-hidden="true">
+    <video id="bgVideo" muted playsinline preload="auto"></video>
+    <canvas id="glitch-overlay"></canvas>
   </div>
+  <div class="bg-vignette" aria-hidden="true"></div>
 
-  <header class="site-header">
-    <div class="bar bar--black">
-      <a class="logo" href="index.html">zati—ki <em>labs</em></a>
-      <nav class="nav-main" aria-label="Principal">
-        <a href="#lineup">Line-up</a>
-        <a href="#info">Info</a>
-        <a href="index.html#productos">Productos</a>
-        <a href="#entradas" aria-current="page">Entradas</a>
-      </nav>
+  <div class="festival-shell">
+    <header class="site-header">
+      <div class="bar bar--black">
+        <a class="logo" href="index.html">zati—ki <em>labs</em></a>
+        <nav class="nav-main" aria-label="Principal">
+          <a href="#lineup">Line-up</a>
+          <a href="#info">Info</a>
+          <a href="index.html#productos">Productos</a>
+          <a href="#entradas">Entradas</a>
+        </nav>
+      </div>
+      <div class="bar bar--white">
+        <div class="util-left" aria-label="Idioma">
+          <a href="#" aria-current="true">ES</a>
+          <a href="#">EU</a>
+          <a href="#">EN</a>
+        </div>
+        <div class="util-right">
+          <a href="#entradas">Venta de entradas</a>
+          <span aria-hidden="true">·</span>
+          <a href="#info">Información práctica</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="tickets-fixed">
+      <a class="estilo-2026 estilo-2026-m tickets" href="#entradas"><span class="splitspan">Tickets</span></a>
     </div>
-    <div class="bar bar--white">
-      <div class="util-left" aria-label="Idioma">
-        <a href="#" aria-current="true">ES</a>
-        <a href="#">EU</a>
-        <a href="#">EN</a>
-      </div>
-      <div class="util-right">
-        <a href="#entradas">Venta de entradas</a>
-        <span aria-hidden="true">·</span>
-        <a href="#info">Información práctica</a>
-      </div>
-    </div>
-  </header>
 
-  <div class="marquee-wrap" aria-hidden="true">
-    <div class="marquee">
-      <span>Pulse Lab 2026 — 12 y 13 de septiembre — Donostia</span>
-      <span>IA · Open Source · Sistemas críticos</span>
-      <span>Dev Ideas · estudIA · MemoKards en vivo</span>
-      <span>Pulse Lab 2026 — 12 y 13 de septiembre — Donostia</span>
-      <span>IA · Open Source · Sistemas críticos</span>
-      <span>Dev Ideas · estudIA · MemoKards en vivo</span>
-    </div>
-  </div>
-
-  <main class="stage">
-    <div class="hero-grid">
-      <div class="hero-meta">
-        <p><span class="tape tape--sm">1.ª edición demo</span></p>
-        <p><span class="tape tape--sm">Donostia / San Sebastián</span></p>
-        <p><span class="tape tape--sm">12—13 Sep 2026</span></p>
-        <p style="margin-top:1.25rem">
-          <span class="tape tape--sm tape--invert">Estilo festival</span>
-        </p>
-      </div>
-
-      <div class="col-center stack-tape stack-tape--wide glitch-title" id="hero-title">
-        <span class="tape--lg">Pulse</span>
-        <span class="tape--lg">Lab</span>
-        <span class="tape--md">2026</span>
-      </div>
-
-      <div class="col-right stack-tape stack-tape--tight">
-        <span class="tape--md">Zatiki</span>
-        <span class="tape--md">Sessions</span>
-        <span class="tape--sm">Noche de producto</span>
+    <div class="marquee-wrap" aria-hidden="true">
+      <div class="marquee">
+        <span>Pulse Lab 2026 — 12 y 13 de septiembre — Donostia</span>
+        <span>IA · Open Source · Sistemas críticos</span>
+        <span>Dev Ideas · estudIA · MemoKards en vivo</span>
+        <span>Pulse Lab 2026 — 12 y 13 de septiembre — Donostia</span>
+        <span>IA · Open Source · Sistemas críticos</span>
+        <span>Dev Ideas · estudIA · MemoKards en vivo</span>
       </div>
     </div>
 
-    <section id="lineup" class="lineup-section">
-      <div class="lineup-head">
-        <h1 class="tape tape--md">Line-up</h1>
+    <main class="stage">
+      <div class="hero-grid">
+        <div class="site-intro">
+          <ul>
+            <li><h5 class="estilo-2026 estilo-2026-xs"><span class="splitspan">1.ª edición demo</span></h5></li>
+            <li><h1 class="estilo-2026 estilo-2026-xs"><span class="splitspan">Pulse Lab</span></h1></li>
+            <li><h2 class="estilo-2026 estilo-2026-xs"><span class="splitspan">Donostia / San Sebastián</span></h2></li>
+            <li><h3 class="estilo-2026 estilo-2026-xs"><span class="splitspan">Zatiki Sessions</span></h3></li>
+            <li><h4 class="estilo-2026 estilo-2026-xs"><span class="splitspan">12—13 Sep 2026</span></h4></li>
+          </ul>
+        </div>
+
+        <div class="col-center">
+          <h2 class="estilo-2026 estilo-2026-l"><span class="splitspan">Pulse Lab 2026</span></h2>
+        </div>
+
+        <div class="col-right">
+          <h2 class="estilo-2026 estilo-2026-m"><span class="splitspan">Noche de producto</span></h2>
+        </div>
       </div>
 
-      <div class="lineup-columns">
-        <div class="stack-tape">
-          <a href="index.html#productos">Dev Ideas</a>
-          <span class="role">MCP · Kanban · Gantt</span>
-        </div>
-        <div class="stack-tape">
-          <a href="estudia.html">estudIA</a>
-          <span class="role">Lectura · Diagramas · Chat</span>
-        </div>
-        <div class="stack-tape">
-          <a href="https://github.com/nimelias/memocards" rel="noopener">MemoKards</a>
-          <span class="role">SM-2 · Móvil</span>
-        </div>
-        <div class="stack-tape">
-          <span>Requisitos industriales</span>
-          <span class="role">Track crítico</span>
-        </div>
-        <div class="stack-tape">
-          <span>Agentes con contexto</span>
-          <span class="role">IA aplicada</span>
-        </div>
-        <div class="stack-tape">
-          <span>Observabilidad OSS</span>
-          <span class="role">Producción</span>
-        </div>
-        <div class="stack-tape">
-          <span>Integración legacy</span>
-          <span class="role">Taller</span>
-        </div>
-        <div class="stack-tape">
-          <span>Prototipado acelerado</span>
-          <span class="role">Live coding</span>
-        </div>
-        <div class="stack-tape">
-          <span>Seguridad en despliegue</span>
-          <span class="role">Panel</span>
-        </div>
-        <div class="stack-tape">
-          <span>Diagramas vivos</span>
-          <span class="role">Visualización</span>
-        </div>
-        <div class="stack-tape">
-          <span>Barajas desde libros</span>
-          <span class="role">Pipeline IA</span>
-        </div>
-        <div class="stack-tape">
-          <span>Open Source stack</span>
-          <span class="role">Infra</span>
-        </div>
-        <div class="stack-tape">
-          <span>Closing · Q&amp;A</span>
-          <span class="role">Contacto directo</span>
-        </div>
-      </div>
-    </section>
+      <section id="lineup" class="lineup-section lineup">
+        <h2 class="estilo-2026 estilo-2026-m"><span class="splitspan">Line-up</span></h2>
 
-    <section id="info" class="info-band">
-      <div class="info-cell">
-        <h2><span class="tape tape--sm">Horarios</span></h2>
-        <p>Viernes 18:00—02:00 · Sábado 12:00—23:00. Puertas 45 min antes de la primera sesión.</p>
-      </div>
-      <div class="info-cell">
-        <h2><span class="tape tape--sm">Acceso</span></h2>
-        <ul>
-          <li>Entrada con código QR</li>
-          <li>Acreditación en mostrador</li>
-          <li>Wi‑Fi para demos técnicas</li>
+        <ul class="lineup-columns">
+          <li>
+            <h2 class="estilo-2026 estilo-2026-l">
+              <a href="index.html#productos"><span class="splitspan">Dev Ideas</span></a>
+            </h2>
+            <span class="role">MCP · Kanban · Gantt</span>
+          </li>
+          <li>
+            <h2 class="estilo-2026 estilo-2026-l">
+              <a href="estudia.html"><span class="splitspan">estudIA</span></a>
+            </h2>
+            <span class="role">Lectura · Diagramas · Chat</span>
+          </li>
+          <li>
+            <h2 class="estilo-2026 estilo-2026-l">
+              <a href="https://github.com/nimelias/memocards" rel="noopener"><span class="splitspan">MemoKards</span></a>
+            </h2>
+            <span class="role">SM-2 · Móvil</span>
+          </li>
+          <li>
+            <h2 class="estilo-2026 estilo-2026-l"><span class="splitspan">Requisitos industriales</span></h2>
+            <span class="role">Track crítico</span>
+          </li>
+          <li>
+            <h2 class="estilo-2026 estilo-2026-l"><span class="splitspan">Agentes con contexto</span></h2>
+            <span class="role">IA aplicada</span>
+          </li>
+          <li>
+            <h2 class="estilo-2026 estilo-2026-l"><span class="splitspan">Observabilidad OSS</span></h2>
+            <span class="role">Producción</span>
+          </li>
+          <li>
+            <h2 class="estilo-2026 estilo-2026-l"><span class="splitspan">Integración legacy</span></h2>
+            <span class="role">Taller</span>
+          </li>
+          <li>
+            <h2 class="estilo-2026 estilo-2026-l"><span class="splitspan">Prototipado acelerado</span></h2>
+            <span class="role">Live coding</span>
+          </li>
+          <li>
+            <h2 class="estilo-2026 estilo-2026-l"><span class="splitspan">Seguridad en despliegue</span></h2>
+            <span class="role">Panel</span>
+          </li>
+          <li>
+            <h2 class="estilo-2026 estilo-2026-l"><span class="splitspan">Diagramas vivos</span></h2>
+            <span class="role">Visualización</span>
+          </li>
+          <li>
+            <h2 class="estilo-2026 estilo-2026-l"><span class="splitspan">Barajas desde libros</span></h2>
+            <span class="role">Pipeline IA</span>
+          </li>
+          <li>
+            <h2 class="estilo-2026 estilo-2026-l"><span class="splitspan">Open Source stack</span></h2>
+            <span class="role">Infra</span>
+          </li>
+          <li>
+            <h2 class="estilo-2026 estilo-2026-l"><span class="splitspan">Closing · Q&amp;A</span></h2>
+            <span class="role">Contacto directo</span>
+          </li>
         </ul>
-      </div>
-      <div class="info-cell">
-        <h2><span class="tape tape--sm">Contacto</span></h2>
-        <p>Página de demostración visual inspirada en cartelería de festival. Contenido ficticio; productos reales en Zatiki Labs.</p>
-      </div>
-    </section>
+      </section>
 
-    <section id="entradas" class="cta-block">
-      <div>
-        <h2>Reserva tu plaza</h2>
-        <p>Demostración de diseño web brutalista. Para proyectos reales: contacto@zatikilabs.com</p>
-      </div>
-      <div class="cta-action">
-        <a class="btn-ticket" href="mailto:contacto@zatikilabs.com">Tickets</a>
-      </div>
-    </section>
-  </main>
+      <section id="info" class="info-band">
+        <div class="info-cell">
+          <h2 class="estilo-2026 estilo-2026-xs"><span class="splitspan">Horarios</span></h2>
+          <p>Viernes 18:00—02:00 · Sábado 12:00—23:00. Puertas 45 min antes de la primera sesión.</p>
+        </div>
+        <div class="info-cell">
+          <h2 class="estilo-2026 estilo-2026-xs"><span class="splitspan">Acceso</span></h2>
+          <ul>
+            <li>Entrada con código QR</li>
+            <li>Acreditación en mostrador</li>
+            <li>Wi‑Fi para demos técnicas</li>
+          </ul>
+        </div>
+        <div class="info-cell">
+          <h2 class="estilo-2026 estilo-2026-xs"><span class="splitspan">Nota</span></h2>
+          <p>Demo visual inspirada en Dantz Festival 2026: vídeo de textura, tipografía con blur y ruido local. Contenido ficticio.</p>
+        </div>
+      </section>
 
-  <footer class="site-footer">
-    <span>© <span id="year"></span> Zatiki Labs</span>
-    <a href="index.html">Volver al sitio principal</a>
-  </footer>
+      <section id="entradas" class="cta-block">
+        <div>
+          <h2 class="estilo-2026 estilo-2026-m"><span class="splitspan">Reserva tu plaza</span></h2>
+          <p style="margin-top:0.75rem;font-family:ui-monospace,sans-serif;font-size:0.7rem;text-transform:none;font-weight:400;color:#ddd;max-width:40ch">contacto@zatikilabs.com — proyectos reales en Zatiki Labs.</p>
+        </div>
+        <div class="cta-action">
+          <a class="btn-ticket estilo-2026 estilo-2026-xs" href="mailto:contacto@zatikilabs.com"><span class="splitspan">Tickets</span></a>
+        </div>
+      </section>
+    </main>
 
-  <p class="demo-note">Demo de estilo tipo <a href="https://dantz.eu/festival/" rel="noopener">festival electrónico</a>. Fondo generado en canvas; sin assets de terceros.</p>
+    <footer class="site-footer">
+      <span>© <span id="year"></span> Zatiki Labs</span>
+      <a href="index.html">Volver al sitio principal</a>
+    </footer>
 
-  <script>
-    (function () {
-      document.getElementById("year").textContent = String(new Date().getFullYear());
+    <p class="demo-note">Fondo y lógica adaptados de <a href="https://dantz.eu/festival/" rel="noopener">dantz.eu/festival</a> (vídeo + GSAP). Uso demostrativo.</p>
+  </div>
 
-      var canvas = document.getElementById("glitch-canvas");
-      var bgWrap = document.getElementById("bg-wrap");
-      var heroTitle = document.getElementById("hero-title");
-      if (!canvas || !bgWrap) return;
-
-      var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      var motionOk = !reduced;
-
-      var buffer = document.createElement("canvas");
-      var bctx = buffer.getContext("2d", { alpha: false });
-      var ctx = canvas.getContext("2d", { alpha: false });
-
-      var bw = 0;
-      var bh = 0;
-      var data;
-      var imageData;
-      var frame = 0;
-      var loopTimer = null;
-      var burstTimer = null;
-      var initDone = false;
-      var palette = [
-        [200, 184, 164],
-        [168, 152, 132],
-        [220, 208, 192],
-        [140, 124, 108],
-        [96, 88, 78],
-        [180, 168, 150],
-        [120, 108, 96]
-      ];
-
-      var MAX_BUFFER_W = 720;
-
-      function bufferSize() {
-        var vw = window.innerWidth;
-        var vh = window.innerHeight;
-        var scale = Math.min(1, MAX_BUFFER_W / Math.max(vw, 1));
-        bw = Math.max(320, Math.floor(vw * scale));
-        bh = Math.max(240, Math.floor(vh * scale));
-        buffer.width = bw;
-        buffer.height = bh;
-        canvas.width = bw;
-        canvas.height = bh;
-      }
-
-      function paintBase() {
-        imageData = bctx.createImageData(bw, bh);
-        data = imageData.data;
-        var bands = 32 + Math.floor(bh / 28);
-        for (var y = 0; y < bh; y++) {
-          var band = Math.floor((y / bh) * bands);
-          var pick = palette[(band + (y % 7)) % palette.length];
-          var n = (Math.sin(y * 0.08) + Math.sin(y * 0.031)) * 8;
-          for (var x = 0; x < bw; x++) {
-            var i = (y * bw + x) * 4;
-            var nx = (Math.sin(x * 0.004 + y * 0.006) + 1) * 6;
-            data[i] = Math.min(255, pick[0] + n + nx);
-            data[i + 1] = Math.min(255, pick[1] + n * 0.8);
-            data[i + 2] = Math.min(255, pick[2] + n * 0.6);
-            data[i + 3] = 255;
-          }
-        }
-        bctx.putImageData(imageData, 0, 0);
-      }
-
-      function blit() {
-        ctx.imageSmoothingEnabled = false;
-        ctx.drawImage(buffer, 0, 0, bw, bh);
-      }
-
-      function smearRow(y, strength) {
-        if (y < 0 || y >= bh) return;
-        var rowStart = y * bw * 4;
-        var segments = 8 + (Math.abs(Math.sin(y * 0.07 + frame * 0.02)) * 16 | 0);
-        var segW = Math.ceil(bw / segments);
-        for (var s = 0; s < segments; s++) {
-          var x0 = s * segW;
-          var x1 = Math.min(bw, x0 + segW);
-          var sum = [0, 0, 0];
-          var count = 0;
-          for (var x = x0; x < x1; x++) {
-            var i = rowStart + x * 4;
-            sum[0] += data[i];
-            sum[1] += data[i + 1];
-            sum[2] += data[i + 2];
-            count++;
-          }
-          if (!count) continue;
-          var r = sum[0] / count;
-          var g = sum[1] / count;
-          var b = sum[2] / count;
-          var stretch = strength * (0.4 + Math.random());
-          var fillW = Math.min(bw - x0, Math.floor(segW * (1 + stretch)));
-          for (var fx = x0; fx < x0 + fillW; fx++) {
-            var j = rowStart + fx * 4;
-            data[j] = r;
-            data[j + 1] = g;
-            data[j + 2] = b;
-          }
-        }
-      }
-
-      function sliceShift() {
-        var slices = 3 + (Math.random() * 7 | 0);
-        var sliceH = (bh / slices) | 0;
-        for (var i = 0; i < slices; i++) {
-          var sy = i * sliceH;
-          var sh = i === slices - 1 ? bh - sy : sliceH;
-          var dx = ((Math.random() - 0.5) * 36) | 0;
-          if (!dx) continue;
-          var strip = bctx.getImageData(0, sy, bw, sh);
-          bctx.putImageData(strip, dx, sy);
-        }
-        imageData = bctx.getImageData(0, 0, bw, bh);
-        data = imageData.data;
-      }
-
-      function applySmears(count, minS, maxS) {
-        for (var i = 0; i < count; i++) {
-          smearRow((Math.random() * bh) | 0, minS + Math.random() * (maxS - minS));
-        }
-        bctx.putImageData(imageData, 0, 0);
-      }
-
-      function glitchStep() {
-        frame++;
-        applySmears(2 + (Math.random() * 3 | 0), 2, 9);
-        if (Math.random() < 0.35) sliceShift();
-        if (frame % 5 === 0) {
-          var blockY = (Math.random() * (bh - 20)) | 0;
-          var blockH = 6 + (Math.random() * 48 | 0);
-          for (var yy = blockY; yy < blockY + blockH; yy++) {
-            smearRow(yy, 5 + Math.random() * 12);
-          }
-          bctx.putImageData(imageData, 0, 0);
-        }
-        blit();
-      }
-
-      function triggerBurst() {
-        bgWrap.classList.remove("is-glitch");
-        void bgWrap.offsetWidth;
-        bgWrap.classList.add("is-glitch");
-        if (heroTitle) {
-          heroTitle.style.setProperty("--glitch-x", ((Math.random() - 0.5) * 14 | 0) + "px");
-          heroTitle.classList.add("is-hit");
-          window.setTimeout(function () {
-            heroTitle.classList.remove("is-hit");
-            heroTitle.style.removeProperty("--glitch-x");
-          }, 140);
-        }
-        applySmears(8, 4, 14);
-        sliceShift();
-        if (Math.random() < 0.6) sliceShift();
-        blit();
-      }
-
-      function stopLoop() {
-        if (loopTimer !== null) {
-          window.clearInterval(loopTimer);
-          loopTimer = null;
-        }
-        if (burstTimer !== null) {
-          window.clearTimeout(burstTimer);
-          burstTimer = null;
-        }
-      }
-
-      function scheduleBurst() {
-        burstTimer = window.setTimeout(function () {
-          burstTimer = null;
-          if (!document.hidden && motionOk) triggerBurst();
-          if (motionOk && initDone) scheduleBurst();
-        }, 1800 + Math.random() * 2400);
-      }
-
-      function startLoop() {
-        if (!motionOk || loopTimer !== null) return;
-        loopTimer = window.setInterval(function () {
-          if (document.hidden) return;
-          glitchStep();
-        }, 90);
-        scheduleBurst();
-      }
-
-      function initBackground() {
-        stopLoop();
-        bufferSize();
-        paintBase();
-        imageData = bctx.getImageData(0, 0, bw, bh);
-        data = imageData.data;
-        applySmears(motionOk ? 48 : 64, 3, 14);
-        if (motionOk) applySmears(12, 6, 18);
-        blit();
-        initDone = true;
-        if (motionOk) startLoop();
-      }
-
-      var resizeTimer;
-      window.addEventListener("resize", function () {
-        window.clearTimeout(resizeTimer);
-        resizeTimer = window.setTimeout(initBackground, 180);
-      });
-
-      document.addEventListener("visibilitychange", function () {
-        if (document.hidden) stopLoop();
-        else if (motionOk && initDone) startLoop();
-      });
-
-      window.addEventListener("scroll", function () {
-        var y = window.scrollY;
-        canvas.style.transform = "scaleX(1.08) translateY(" + (y * 0.12) + "px)";
-      }, { passive: true });
-
-      initBackground();
-    })();
-  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/SplitText.min.js"></script>
+  <script src="assets/festival.js"></script>
 </body>
 </html>

@@ -50,9 +50,15 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: saturate(0.72) blur(0.6px);
+  filter: saturate(0.78) blur(0.45px);
   transform: scale(1.06);
   will-change: transform, filter;
+  opacity: 1;
+}
+
+.bg-video--fallback {
+  background:
+    linear-gradient(180deg, #c9b59c 0%, #a89278 45%, #8a7864 100%);
 }
 
 .bg-video.is-burst video {
@@ -72,7 +78,7 @@ body {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  opacity: 0.22;
+  opacity: 0.12;
   mix-blend-mode: hard-light;
 }
 
@@ -85,7 +91,7 @@ body {
   background-image: url("festival/ruido.jpg");
   background-repeat: repeat;
   mix-blend-mode: soft-light;
-  opacity: 0.15;
+  opacity: 0.1;
 }
 
 .bg-vignette {
@@ -190,9 +196,9 @@ body {
   animation: flicker-on 0.28s steps(1) forwards;
 }
 
-.lineup .estilo-2026 a:hover,
-.site-intro a:hover .estilo-2026,
-.tickets-fixed a:hover {
+.lineup-columns .estilo-2026:hover,
+.site-intro .estilo-2026:hover,
+.tickets-fixed .estilo-2026:hover {
   animation: flicker-on 0.28s steps(1) forwards;
 }
 
@@ -337,6 +343,17 @@ body {
 .lineup-columns li {
   break-inside: avoid;
   margin-bottom: clamp(0.75rem, 2vw, 1.25rem);
+  position: relative;
+  isolation: isolate;
+}
+
+.lineup-columns .estilo-2026 {
+  cursor: default;
+}
+
+.lineup-columns a.estilo-2026,
+.lineup-columns .estilo-2026 a {
+  cursor: pointer;
 }
 
 .lineup-columns .role {

@@ -7,38 +7,53 @@
   var bgWrap = document.querySelector(".bg-video");
   var overlay = document.getElementById("glitch-overlay");
 
-  var VIDEO_SRC =
-    "https://dantz.eu/festival/wp-content/uploads/sites/3/2026/03/Texture-Main-LQ-4-Scrubbing.mp4";
+  var VIDEO_LOCAL = "assets/festival/texture-main.mp4";
+
+  function showVideoFrame(t) {
+    if (!video || !video.duration || !isFinite(video.duration)) return;
+    try {
+      video.currentTime = Math.min(Math.max(t, 0.001), video.duration - 0.05);
+    } catch (_) {}
+  }
 
   function initVideoScroll() {
-    if (!video || typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") return;
+    if (!video) return;
 
     video.muted = true;
     video.playsInline = true;
-    video.preload = "auto";
-    video.setAttribute("crossorigin", "anonymous");
+    video.loop = true;
 
     function bindScrub() {
-      video.play().then(function () {
-        video.pause();
+      showVideoFrame(0.08);
+
+      if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
+        gsap.registerPlugin(ScrollTrigger);
         ScrollTrigger.create({
           start: 0,
           end: "max",
-          scrub: true,
+          scrub: 0.35,
           onUpdate: function (self) {
-            if (video.duration && isFinite(video.duration)) {
-              video.currentTime = video.duration * self.progress;
-            }
+            showVideoFrame(video.duration * self.progress);
           }
         });
-      }).catch(function () {
-        video.loop = true;
+      }
+
+      if (!reduced) {
         video.play().catch(function () {});
-      });
+      }
     }
 
-    if (video.readyState >= 1) bindScrub();
-    else video.addEventListener("loadedmetadata", bindScrub, { once: true });
+    function onReady() {
+      bindScrub();
+      if (overlay) initGlitchOverlay();
+    }
+
+    if (video.readyState >= 1) onReady();
+    else video.addEventListener("loadedmetadata", onReady, { once: true });
+
+    video.addEventListener("error", function () {
+      if (bgWrap) bgWrap.classList.add("bg-video--fallback");
+    });
   }
 
   function initTextShake() {
@@ -46,10 +61,13 @@
     gsap.utils.toArray(".estilo-2026 .splitspan-line").forEach(function (el) {
       if (el.dataset.shakeBound === "1") return;
       el.dataset.shakeBound = "1";
+      var inLineup = el.closest(".lineup-columns");
+      var ampX = inLineup ? 0.45 : 1.2;
+      var ampY = inLineup ? 1 : 2.5;
       function shake() {
         gsap.to(el, {
-          x: "random(-1.2, 1.2)",
-          y: "random(-2.5, 2.5)",
+          x: "random(" + -ampX + ", " + ampX + ")",
+          y: "random(" + -ampY + ", " + ampY + ")",
           duration: 0.07,
           ease: "none",
           onComplete: shake
@@ -77,23 +95,14 @@
     });
   }
 
-  function randomFlicker() {
-    if (reduced) return;
-    var blocks = document.querySelectorAll(".estilo-2026");
-    if (!blocks.length) return;
-    var pick = blocks[Math.floor(Math.random() * blocks.length)];
-    pick.classList.remove("is-flicker");
-    void pick.offsetWidth;
-    pick.classList.add("is-flicker");
-    if (bgWrap) {
-      bgWrap.classList.remove("is-burst");
-      void bgWrap.offsetWidth;
-      bgWrap.classList.add("is-burst");
-    }
+  function backgroundBurst() {
+    if (reduced || !bgWrap) return;
+    bgWrap.classList.remove("is-burst");
+    void bgWrap.offsetWidth;
+    bgWrap.classList.add("is-burst");
     window.setTimeout(function () {
-      pick.classList.remove("is-flicker");
-      if (bgWrap) bgWrap.classList.remove("is-burst");
-    }, 280);
+      bgWrap.classList.remove("is-burst");
+    }, 200);
   }
 
   function initGlitchOverlay() {
@@ -119,12 +128,12 @@
       if (document.hidden || video.readyState < 2 || !bctx) return;
       try {
         bctx.drawImage(video, 0, 0, bw, bh);
-        var slices = 5 + (Math.random() * 7 | 0);
+        var slices = 4 + (Math.random() * 5 | 0);
         var sh = bh / slices;
         for (var i = 0; i < slices; i++) {
           var sy = (i * sh) | 0;
           var h = i === slices - 1 ? bh - sy : (sh | 0);
-          var dx = ((Math.random() - 0.5) * 48) | 0;
+          var dx = ((Math.random() - 0.5) * 36) | 0;
           if (!dx) continue;
           var strip = bctx.getImageData(0, sy, bw, h);
           bctx.putImageData(strip, dx, sy);
@@ -141,34 +150,27 @@
 
     resize();
     window.addEventListener("resize", resize);
-    timer = window.setInterval(drawGlitch, 110);
+    timer = window.setInterval(drawGlitch, 140);
     document.addEventListener("visibilitychange", function () {
       if (document.hidden && timer !== null) {
         window.clearInterval(timer);
         timer = null;
       } else if (!document.hidden && timer === null && !reduced) {
-        timer = window.setInterval(drawGlitch, 110);
+        timer = window.setInterval(drawGlitch, 140);
       }
     });
   }
 
   function boot() {
-    if (video && !video.querySelector("source")) {
-      var source = document.createElement("source");
-      source.src = VIDEO_SRC;
-      source.type = "video/mp4";
-      video.appendChild(source);
+    if (video && !video.currentSrc && !video.querySelector("source")) {
+      video.src = VIDEO_LOCAL;
       video.load();
-    }
-    if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
-      gsap.registerPlugin(ScrollTrigger);
     }
     initVideoScroll();
     initSplitLines();
-    window.setTimeout(initTextShake, 800);
-    initGlitchOverlay();
+    window.setTimeout(initTextShake, 600);
     if (!reduced) {
-      window.setInterval(randomFlicker, 2400 + Math.random() * 2000);
+      window.setInterval(backgroundBurst, 8000);
     }
   }
 

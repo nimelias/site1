@@ -291,10 +291,17 @@ body {
   font-weight: 800;
   letter-spacing: 0.12em;
   padding: 0.65rem 0;
+  will-change: transform;
+  animation: marquee-scroll 28s linear infinite;
 }
 
 .marquee span { padding-inline: 2rem; white-space: nowrap; }
 .marquee span::after { content: "◆"; margin-left: 2rem; opacity: 0.35; }
+
+@keyframes marquee-scroll {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
 
 .stage {
   padding: clamp(1.5rem, 4vw, 3rem) clamp(0.75rem, 3vw, 2rem) clamp(4rem, 10vw, 7rem);
@@ -489,6 +496,13 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .estilo-2026.is-flicker { animation: none; }
   .bg-gen.is-burst #bg-canvas { animation: none; }
+  .marquee {
+    animation: none;
+    flex-wrap: wrap;
+    width: auto;
+    justify-content: center;
+    transform: none;
+  }
   html { scroll-behavior: auto; }
   #bg-canvas { filter: blur(0.8px) contrast(1.05); }
 }

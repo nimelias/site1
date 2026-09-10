@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ExamenUNED — Banco de exámenes UNED con estudIA</title>
+  <meta name="description" content="ExamenUNED: exámenes reales de la UNED parseados y listos para practicar. Suscríbete y prepara tus convocatorias con un byproduct de estudIA.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,700;0,6..72,800;1,6..72,500&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: oklch(22% 0.04 240);
+      --ink-soft: oklch(38% 0.03 240);
+      --paper: oklch(96% 0.01 230);
+      --sheet: oklch(99% 0.005 230);
+      --line: oklch(84% 0.02 230);
+      --teal: oklch(55% 0.12 195);
+      --teal-deep: oklch(42% 0.1 210);
+      --amber: oklch(72% 0.14 75);
+      --font-display: "Newsreader", Georgia, serif;
+      --font-body: "Sora", system-ui, sans-serif;
+      --max: 1080px;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.55;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    h1, h2, h3 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      text-wrap: balance;
+      letter-spacing: -0.02em;
+    }
+    .wrap { width: min(var(--max), 92vw); margin: 0 auto; }
+
+    /* —— Header —— */
+    .top {
+      position: absolute; inset: 0 0 auto; z-index: 10;
+      padding: 20px 0;
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .nav-brand {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.15rem;
+      color: var(--sheet);
+    }
+    .nav-brand em {
+      font-style: italic;
+      font-weight: 500;
+      opacity: 0.72;
+    }
+    .nav a.ghost {
+      color: color-mix(in oklch, var(--sheet) 85%, transparent);
+      font-size: 0.88rem;
+      font-weight: 500;
+      border-bottom: 1px solid transparent;
+      transition: border-color 200ms var(--ease);
+    }
+    .nav a.ghost:hover { border-color: color-mix(in oklch, var(--sheet) 50%, transparent); }
+
+    /* —— Hero: one composition, full-bleed —— */
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: grid;
+      align-items: end;
+      padding: 0 0 56px;
+      color: var(--sheet);
+      background:
+        linear-gradient(160deg, oklch(28% 0.05 235) 0%, oklch(18% 0.04 220) 48%, oklch(24% 0.06 195) 100%);
+      isolation: isolate;
+    }
+    .hero::before {
+      content: "";
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 70% 55% at 78% 30%, oklch(55% 0.12 195 / 0.35), transparent 60%),
+        radial-gradient(ellipse 50% 40% at 12% 80%, oklch(72% 0.14 75 / 0.18), transparent 55%);
+      animation: atmosphere 14s ease-in-out infinite alternate;
+    }
+    @keyframes atmosphere {
+      from { transform: scale(1) translate(0, 0); }
+      to { transform: scale(1.06) translate(-1.5%, 1%); }
+    }
+
+    .hero-grid {
+      position: relative; z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+      gap: clamp(28px, 5vw, 56px);
+      align-items: end;
+      width: min(var(--max), 92vw);
+      margin: 0 auto;
+      padding-top: 100px;
+    }
+
+    .hero-copy { max-width: 36rem; }
+    .hero-copy .brand {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(2.6rem, 6vw, 4.2rem);
+      line-height: 0.95;
+      margin: 0 0 18px;
+      animation: rise 0.9s var(--ease) both;
+    }
+    .hero-copy h1 {
+      font-size: clamp(1.35rem, 2.6vw, 1.85rem);
+      font-weight: 500;
+      font-style: italic;
+      line-height: 1.25;
+      margin: 0 0 14px;
+      color: color-mix(in oklch, var(--sheet) 92%, var(--amber));
+      animation: rise 0.9s var(--ease) 0.1s both;
+    }
+    .hero-copy .lead {
+      margin: 0 0 28px;
+      max-width: 42ch;
+      font-size: 1.02rem;
+      color: color-mix(in oklch, var(--sheet) 78%, transparent);
+      animation: rise 0.9s var(--ease) 0.18s both;
+    }
+    .hero-actions {
+      display: flex; flex-wrap: wrap; gap: 12px;
+      animation: rise 0.9s var(--ease) 0.26s both;
+    }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 48px; padding: 0 22px;
+      border-radius: 10px; border: 1px solid transparent;
+      font-family: var(--font-body); font-weight: 600; font-size: 0.95rem;
+      cursor: pointer; transition: transform 180ms var(--ease), background 180ms ease, border-color 180ms ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary {
+      background: var(--amber);
+      color: var(--ink);
+    }
+    .btn-primary:hover { background: color-mix(in oklch, var(--amber) 88%, white); }
+    .btn-ghost {
+      background: transparent;
+      border-color: color-mix(in oklch, var(--sheet) 35%, transparent);
+      color: var(--sheet);
+    }
+    .btn-ghost:hover { border-color: color-mix(in oklch, var(--sheet) 70%, transparent); }
+
+    /* Exam sheets as dominant visual */
+    .hero-stage {
+      position: relative;
+      min-height: min(58vh, 480px);
+      animation: float-stage 7s ease-in-out infinite;
+    }
+    @keyframes float-stage {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .sheet {
+      position: absolute;
+      width: min(100%, 420px);
+      background: var(--sheet);
+      color: var(--ink);
+      border: 1px solid color-mix(in oklch, var(--ink) 12%, transparent);
+      padding: 22px 24px 26px;
+      box-shadow: 0 24px 60px oklch(12% 0.04 240 / 0.35);
+      font-size: 0.78rem;
+      line-height: 1.45;
+    }
+    .sheet--back {
+      right: 8%; top: 8%;
+      transform: rotate(6deg);
+      opacity: 0.88;
+      filter: brightness(0.97);
+    }
+    .sheet--mid {
+      right: 18%; top: 18%;
+      transform: rotate(-3.5deg);
+      opacity: 0.94;
+    }
+    .sheet--front {
+      right: 0; bottom: 0;
+      transform: rotate(1.5deg);
+      z-index: 2;
+    }
+    .sheet .meta {
+      display: flex; justify-content: space-between; gap: 8px;
+      font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em;
+      color: var(--ink-soft); margin-bottom: 12px;
+      border-bottom: 1px solid var(--line); padding-bottom: 8px;
+    }
+    .sheet h3 {
+      font-size: 0.95rem; margin: 0 0 10px; font-style: italic; font-weight: 600;
+    }
+    .sheet ol { margin: 0; padding-left: 1.1rem; color: var(--ink-soft); }
+    .sheet li { margin-bottom: 6px; }
+    .sheet .tag {
+      display: inline-block; margin-top: 12px;
+      font-size: 0.65rem; font-weight: 600; letter-spacing: 0.04em;
+      text-transform: uppercase; color: var(--teal-deep);
+      border-left: 3px solid var(--teal); padding-left: 8px;
+    }
+
+    /* —— Sections —— */
+    section.block { padding: 72px 0; }
+    section.block h2 {
+      font-size: clamp(1.7rem, 3vw, 2.25rem);
+      margin: 0 0 10px;
+    }
+    section.block .sub {
+      margin: 0 0 36px;
+      color: var(--ink-soft);
+      max-width: 48ch;
+      font-size: 1.02rem;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 28px 32px;
+      counter-reset: step;
+    }
+    .steps article {
+      position: relative;
+      padding-top: 8px;
+      border-top: 2px solid var(--teal);
+    }
+    .steps article::before {
+      counter-increment: step;
+      content: "0" counter(step);
+      display: block;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: var(--teal-deep);
+      margin-bottom: 10px;
+    }
+    .steps h3 { margin: 0 0 8px; font-size: 1.15rem; }
+    .steps p { margin: 0; color: var(--ink-soft); font-size: 0.95rem; }
+
+    .promise {
+      background:
+        linear-gradient(135deg, oklch(94% 0.02 195), oklch(96% 0.015 230));
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .promise-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 40px;
+      align-items: center;
+    }
+    .promise ul {
+      list-style: none; margin: 0; padding: 0;
+      display: grid; gap: 14px;
+    }
+    .promise li {
+      display: grid;
+      grid-template-columns: 10px 1fr;
+      gap: 12px;
+      align-items: start;
+      font-size: 0.98rem;
+    }
+    .promise li::before {
+      content: "";
+      width: 10px; height: 10px; margin-top: 0.45em;
+      background: var(--teal);
+      border-radius: 2px;
+    }
+    .promise-aside {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+      font-style: italic;
+      line-height: 1.3;
+      margin: 0;
+      color: var(--teal-deep);
+    }
+
+    /* Subscribe = interaction container */
+    .subscribe {
+      scroll-margin-top: 24px;
+    }
+    .subscribe-panel {
+      background: var(--sheet);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: clamp(28px, 4vw, 40px);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: center;
+      box-shadow: 0 20px 50px oklch(22% 0.04 240 / 0.06);
+    }
+    .subscribe-panel h2 { margin-bottom: 8px; }
+    .subscribe-panel .sub { margin-bottom: 0; }
+    .subscribe-form { display: grid; gap: 12px; }
+    .subscribe-form label {
+      font-size: 0.82rem; font-weight: 600; color: var(--ink-soft);
+    }
+    .subscribe-form input[type="email"] {
+      width: 100%;
+      min-height: 48px;
+      padding: 0 14px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      font: inherit;
+      background: var(--paper);
+      color: var(--ink);
+    }
+    .subscribe-form input:focus {
+      outline: 2px solid color-mix(in oklch, var(--teal) 55%, transparent);
+      outline-offset: 2px;
+    }
+    .subscribe-form .btn-primary { width: 100%; }
+    .form-note {
+      margin: 0;
+      font-size: 0.8rem;
+      color: var(--ink-soft);
+    }
+    .form-ok {
+      display: none;
+      padding: 16px;
+      border-radius: 10px;
+      background: color-mix(in oklch, var(--teal) 12%, var(--paper));
+      color: var(--teal-deep);
+      font-weight: 500;
+    }
+    .subscribe-form.is-done .fields { display: none; }
+    .subscribe-form.is-done .form-ok { display: block; }
+
+    footer {
+      padding: 28px 0 40px;
+      border-top: 1px solid var(--line);
+      color: var(--ink-soft);
+      font-size: 0.88rem;
+    }
+    footer .wrap {
+      display: flex; flex-wrap: wrap; gap: 12px 24px;
+      justify-content: space-between; align-items: center;
+    }
+    footer a { border-bottom: 1px solid color-mix(in oklch, var(--ink-soft) 40%, transparent); }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    }
+    .reveal.is-in {
+      opacity: 1;
+      transform: none;
+    }
+
+    @media (max-width: 860px) {
+      .hero { align-items: start; padding-bottom: 40px; }
+      .hero-grid {
+        grid-template-columns: 1fr;
+        padding-top: 88px;
+      }
+      .hero-stage {
+        order: -1;
+        min-height: 280px;
+        margin-bottom: 8px;
+      }
+      .sheet { width: min(100%, 320px); font-size: 0.72rem; padding: 16px 18px; }
+      .sheet--back { right: 4%; top: 0; }
+      .sheet--mid { right: 12%; top: 12%; }
+      .sheet--front { right: 0; bottom: 0; }
+      .steps, .promise-grid, .subscribe-panel { grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="wrap nav">
+      <a class="nav-brand" href="uned.html">ExamenUNED <em>· estudIA</em></a>
+      <a class="ghost" href="index.html">Zatiki Labs</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" aria-label="Presentación">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="brand">ExamenUNED</p>
+          <h1>Practica con exámenes reales de la UNED, ya parseados.</h1>
+          <p class="lead">
+            Un byproduct de estudIA: banco de convocatorias estructurado para que estudies preguntas, no PDFs.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#suscribirse">Suscribirme</a>
+            <a class="btn btn-ghost" href="#como-funciona">Cómo funciona</a>
+          </div>
+        </div>
+
+        <div class="hero-stage" aria-hidden="true">
+          <div class="sheet sheet--back">
+            <div class="meta"><span>Psicología · Grado</span><span>Sep 2024</span></div>
+            <h3>Convocatoria ordinaria</h3>
+            <ol>
+              <li>Según Piaget, la etapa de las operaciones formales…</li>
+              <li>El condicionamiento operante se asocia con…</li>
+            </ol>
+          </div>
+          <div class="sheet sheet--mid">
+            <div class="meta"><span>Derecho · Grado</span><span>Feb 2025</span></div>
+            <h3>Examen parcial</h3>
+            <ol>
+              <li>La eficacia de las normas jurídicas…</li>
+              <li>El principio de jerarquía normativa implica…</li>
+            </ol>
+          </div>
+          <div class="sheet sheet--front">
+            <div class="meta"><span>Informática · Grado</span><span>Jun 2025</span></div>
+            <h3>Examen final — tipo test</h3>
+            <ol>
+              <li>En un grafo dirigido acíclico, el ordenamiento topológico…</li>
+              <li>La complejidad media de búsqueda en un árbol AVL es…</li>
+              <li>¿Qué garantiza el protocolo TCP respecto a UDP?</li>
+            </ol>
+            <span class="tag">Parseado · listo para practicar</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="como-funciona" class="block wrap reveal">
+      <h2>De PDF de convocatoria a sesión de práctica</h2>
+      <p class="sub">Tres pasos. Sin rebuscar páginas sueltas ni adivinar el enunciado.</p>
+      <div class="steps">
+        <article>
+          <h3>Ingesta</h3>
+          <p>Recogemos exámenes oficiales de la UNED y los convertimos en preguntas estructuradas.</p>
+        </article>
+        <article>
+          <h3>Organización</h3>
+          <p>Filtra por grado, asignatura y convocatoria. Todo indexado para encontrar lo que toca este cuatrimestre.</p>
+        </article>
+        <article>
+          <h3>Práctica</h3>
+          <p>Repasa en modo test, marca dudas y vuelve sobre lo que fallaste — integrado con el ecosistema estudIA.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="block promise reveal">
+      <div class="wrap promise-grid">
+        <div>
+          <h2>Hecho para quien se examina en la UNED</h2>
+          <p class="sub">Menos fricción entre el material oficial y el tiempo real de estudio.</p>
+          <ul>
+            <li>Enunciados limpios, sin ruido de escaneo ni maquetación rota</li>
+            <li>Histórico de convocatorias para detectar patrones de pregunta</li>
+            <li>Ritmo de suscripción pensado para el curso académico</li>
+            <li>Misma línea de producto que estudIA: estudio con datos, no con caos</li>
+          </ul>
+        </div>
+        <p class="promise-aside">
+          «No es otro resumen. Es el examen de verdad, listo para entrenar.»
+        </p>
+      </div>
+    </section>
+
+    <section id="suscribirse" class="block wrap subscribe reveal">
+      <div class="subscribe-panel">
+        <div>
+          <h2>Suscríbete al acceso anticipado</h2>
+          <p class="sub">
+            Déjanos tu email y te avisamos cuando abra la suscripción.
+            Prioridad a estudiantes UNED en lista de espera.
+          </p>
+        </div>
+        <form class="subscribe-form" id="waitlist" novalidate>
+          <div class="fields">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" autocomplete="email" required placeholder="tu@email.com" inputmode="email">
+            <button class="btn btn-primary" type="submit">Quiero suscribirme</button>
+            <p class="form-note">Sin spam. Solo aviso de lanzamiento y condiciones de suscripción.</p>
+          </div>
+          <p class="form-ok" role="status" id="form-ok">
+            Gracias. Estás en la lista de espera de ExamenUNED.
+          </p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© <span id="year"></span> Zatiki Labs · ExamenUNED (byproduct de <a href="estudia.html">estudIA</a>)</span>
+      <a href="index.html">Volver a Zatiki Labs</a>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      document.getElementById('year').textContent = String(new Date().getFullYear());
+
+      var form = document.getElementById('waitlist');
+      var email = document.getElementById('email');
+      var key = 'examenuned-waitlist';
+
+      try {
+        if (localStorage.getItem(key)) form.classList.add('is-done');
+      } catch (_) {}
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var value = (email.value || '').trim();
+        if (!value || !email.checkValidity()) {
+          email.focus();
+          email.reportValidity();
+          return;
+        }
+        try {
+          localStorage.setItem(key, JSON.stringify({ email: value, at: Date.now() }));
+        } catch (_) {}
+        form.classList.add('is-done');
+        var subject = encodeURIComponent('Lista de espera ExamenUNED');
+        var body = encodeURIComponent('Quiero suscribirme a ExamenUNED.\nEmail: ' + value);
+        window.location.href = 'mailto:contacto@zatikilabs.com?subject=' + subject + '&body=' + body;
+      });
+
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var nodes = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) {
+        nodes.forEach(function (n) { n.classList.add('is-in'); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-in');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.18 });
+      nodes.forEach(function (n) { io.observe(n); });
+    })();
+  </script>
+</body>
+</html>

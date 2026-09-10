@@ -1048,6 +1048,29 @@
         height: auto;
       }
 
+      .product-visual--teaser {
+        display: grid;
+        place-items: center;
+        min-height: 220px;
+        padding: 28px;
+        background:
+          linear-gradient(145deg, oklch(28% 0.05 235), oklch(22% 0.05 200));
+        color: oklch(96% 0.01 230);
+        text-align: center;
+      }
+
+      .product-visual--teaser strong {
+        display: block;
+        font-family: var(--font-display);
+        font-size: clamp(1.6rem, 3vw, 2.1rem);
+        margin-bottom: 8px;
+      }
+
+      .product-visual--teaser span {
+        opacity: 0.8;
+        font-size: 0.95rem;
+      }
+
       .cta {
         margin: 32px 0 16px;
         border: 1px solid color-mix(in oklch, var(--brand) 20%, var(--line));
@@ -1269,6 +1292,33 @@
         </article>
 
         <article class="product-card">
+          <div class="product-info">
+            <span class="product-badge">Byproduct · estudIA</span>
+            <h3>ExamenUNED</h3>
+            <p>
+              Banco comercial de exámenes UNED parseados: convocatorias estructuradas para practicar
+              tipo test sin pelearte con el PDF. Lista de espera y suscripción para estudiantes.
+            </p>
+            <ul class="product-features">
+              <li>Exámenes oficiales convertidos en preguntas practicables</li>
+              <li>Filtro por grado, asignatura y convocatoria</li>
+              <li>Enfoque en suscripción de estudiantes UNED</li>
+              <li>Misma línea de producto que estudIA</li>
+            </ul>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="uned.html">Ver landing y suscribirse</a>
+              <a class="btn btn-ghost" href="uned.html#suscribirse">Lista de espera</a>
+            </div>
+          </div>
+          <a class="product-visual product-visual--teaser" href="uned.html">
+            <div>
+              <strong>ExamenUNED</strong>
+              <span>Convocatorias parseadas · suscripción estudiantes</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="product-card product-card--reverse">
           <div class="product-info">
             <span class="product-badge">Producto propio</span>
             <h3>MemoKards</h3>

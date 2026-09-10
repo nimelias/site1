@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Iteraciones — de la abstracción a lo concreto · Zatiki Labs</title>
+  <meta name="description" content="Cómo las abstracciones se vuelven concretas: un recorrido visual en múltiples iteraciones. Zatiki Labs.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Roboto+Condensed:ital,wght@0,700;0,800;0,900;1,700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/iteraciones.css">
+</head>
+<body>
+  <div class="atmos" aria-hidden="true">
+    <canvas id="field"></canvas>
+    <div class="atmos-scan"></div>
+    <div class="atmos-grain"></div>
+    <div class="atmos-mesh"></div>
+    <div class="atmos-orbs">
+      <span class="orb orb-a"></span>
+      <span class="orb orb-b"></span>
+      <span class="orb orb-c"></span>
+    </div>
+    <div class="atmos-vignette"></div>
+  </div>
+
+  <aside class="hud" aria-live="polite">
+    <div class="hud-iter">
+      <span class="hud-kicker">iteración</span>
+      <span class="hud-num" id="hud-num">00</span>
+    </div>
+    <p class="hud-label" id="hud-label">niebla</p>
+    <div class="hud-meter" role="meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Fidelidad">
+      <span class="hud-meter-fill" id="hud-fill"></span>
+    </div>
+    <span class="hud-fid" id="hud-fid">fidelidad 0%</span>
+  </aside>
+
+  <header class="site-header">
+    <div class="bar bar--ink">
+      <a class="logo" href="index.html">zati—ki <em>labs</em></a>
+      <nav class="nav-main" aria-label="Principal">
+        <a href="#manifiesto">Manifiesto</a>
+        <a href="#forma">Forma</a>
+        <a href="#metodo">Método</a>
+        <a href="#producto">Producto</a>
+        <a href="index.html">Sitio</a>
+      </nav>
+    </div>
+    <div class="bar bar--paper">
+      <div class="util-left">
+        <span>abstracción</span>
+        <span class="util-arrow" aria-hidden="true">→</span>
+        <span>concreción</span>
+      </div>
+      <div class="util-right">
+        <a href="festival.html">Pulse Lab</a>
+        <span aria-hidden="true">·</span>
+        <a href="index.html#contacto">Contacto</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="marquee-wrap" aria-hidden="true">
+    <div class="marquee" id="marquee">
+      <span>abstracción</span>
+      <span>señal</span>
+      <span>forma</span>
+      <span>método</span>
+      <span>producto</span>
+      <span>entrega</span>
+      <span>abstracción</span>
+      <span>señal</span>
+      <span>forma</span>
+      <span>método</span>
+      <span>producto</span>
+      <span>entrega</span>
+    </div>
+  </div>
+
+  <main>
+    <section class="act act-0" id="niebla" data-iter="0" data-label="niebla">
+      <div class="act-pin">
+        <svg class="blob-field" viewBox="0 0 800 600" aria-hidden="true">
+          <defs>
+            <filter id="goo">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="18" result="blur"/>
+              <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -8" result="goo"/>
+              <feBlend in="SourceGraphic" in2="goo"/>
+            </filter>
+          </defs>
+          <g class="blobs" filter="url(#goo)">
+            <ellipse class="blob b1" cx="280" cy="280" rx="140" ry="160"/>
+            <ellipse class="blob b2" cx="480" cy="250" rx="120" ry="140"/>
+            <ellipse class="blob b3" cx="400" cy="360" rx="90" ry="110"/>
+          </g>
+        </svg>
+        <div class="glyph-cloud" aria-hidden="true">
+          <span>∴</span><span>⊘</span><span>△</span><span>◈</span><span>≈</span>
+          <span>λ</span><span>□</span><span>○</span><span>∇</span><span>∞</span>
+        </div>
+        <h1 class="tape tape-xl title-blur">
+          <span class="splitspan">Aún no hay forma</span>
+        </h1>
+        <p class="whisper">Solo campo, ruido y la hipótesis de que algo puede aparecer.</p>
+      </div>
+    </section>
+
+    <section class="act act-1" id="manifiesto" data-iter="1" data-label="señal">
+      <div class="act-inner">
+        <p class="kicker tape tape-xs"><span class="splitspan">Iteración 01</span></p>
+        <h2 class="tape tape-l manifesto-line"><span class="splitspan">De la abstracción</span></h2>
+        <h2 class="tape tape-l manifesto-line"><span class="splitspan">a lo concreto</span></h2>
+        <p class="lede">
+          Una idea no nace lista para producción. Primero es niebla: requisitos a medias, metáforas, un dibujo en el aire.
+          Luego se itera. Cada vuelta añade borde, contraste, evidencia. El software de Zatiki Labs es ese
+          proceso hecho método: <em>señal → forma → método → producto</em>.
+        </p>
+        <ul class="signal-list">
+          <li><span class="sig-n">01</span> Capturar lo vago sin forzar una solución.</li>
+          <li><span class="sig-n">02</span> Prototipar hasta que la forma se defienda sola.</li>
+          <li><span class="sig-n">03</span> Entregar algo que un usuario exigente pueda tocar.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="act act-2" id="forma" data-iter="2" data-label="forma">
+      <div class="act-inner">
+        <p class="kicker tape tape-xs"><span class="splitspan">Iteración 02 · servicios</span></p>
+        <h2 class="tape tape-m"><span class="splitspan">La forma se aclara</span></h2>
+        <p class="section-sub">Tres capacidades. Al principio parecen el mismo bloque; al iterar, se separan.</p>
+        <div class="card-grid">
+          <article class="morph-card" data-depth="0">
+            <h3>Ingeniería de software</h3>
+            <p>Plataformas, herramientas internas y productos con arquitectura sólida. De un recuadro vacío a un sistema que se mantiene.</p>
+          </article>
+          <article class="morph-card" data-depth="1">
+            <h3>IA y automatización</h3>
+            <p>Asistentes, workflows y procesos sobre stack open source. El modelo no sustituye el requisito: lo acelera.</p>
+          </article>
+          <article class="morph-card" data-depth="2">
+            <h3>Entornos críticos</h3>
+            <p>Usuarios exigentes, contexto industrial. Traducimos lo implícito en especificaciones y software mantenible.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="act act-3" id="metodo" data-iter="3" data-label="método">
+      <div class="act-inner">
+        <p class="kicker tape tape-xs"><span class="splitspan">Iteración 03 · enfoque</span></p>
+        <h2 class="tape tape-m"><span class="splitspan">Tres vueltas, no un salto</span></h2>
+        <p class="section-sub">Rigor de ingeniería, velocidad de la IA, solidez del open source.</p>
+        <ol class="method-track">
+          <li class="step" data-step="1">
+            <span class="step-index">01</span>
+            <div>
+              <h3>Análisis de requisitos</h3>
+              <p>Capturamos y priorizamos necesidades reales —incluso las más exigentes— antes de escribir una línea.</p>
+            </div>
+          </li>
+          <li class="step" data-step="2">
+            <span class="step-index">02</span>
+            <div>
+              <h3>Prototipado acelerado</h3>
+              <p>IA y componentes open source para validar ideas rápido y acortar el tiempo hasta el primer entregable útil.</p>
+            </div>
+          </li>
+          <li class="step" data-step="3">
+            <span class="step-index">03</span>
+            <div>
+              <h3>Producción fiable</h3>
+              <p>Despliegue continuo, observabilidad y documentación para que el software evolucione sin sorpresas.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="act act-4" id="producto" data-iter="4" data-label="producto">
+      <div class="act-inner">
+        <p class="kicker tape tape-xs"><span class="splitspan">Iteración 04 · evidencia</span></p>
+        <h2 class="tape tape-m"><span class="splitspan">Lo concreto se puede abrir</span></h2>
+        <p class="section-sub">Productos propios: la abstracción ya tiene pantallas, algoritmos y usuarios.</p>
+
+        <article class="product reveal-product">
+          <div class="product-copy">
+            <span class="badge">Producto propio</span>
+            <h3>Dev Ideas</h3>
+            <p>Gestor de tareas de desarrollo con IA. Requisitos, kanban, gantt y diagramas. Del esquema a la entrega.</p>
+            <ul class="features">
+              <li>Esquema jerárquico de requisitos</li>
+              <li>Kanban, Gantt y diagramas</li>
+              <li>MCP para asistentes de código</li>
+            </ul>
+            <a class="btn" href="http://10.10.10.1:3004" target="_blank" rel="noopener">Abrir Dev Ideas</a>
+          </div>
+          <figure class="product-shot">
+            <img src="assets/dev-ideas.png" alt="Dev Ideas: esquema jerárquico de requisitos y tareas" width="1898" height="889" loading="lazy">
+          </figure>
+        </article>
+
+        <article class="product product--flip reveal-product">
+          <div class="product-copy">
+            <span class="badge">Producto propio</span>
+            <h3>estudIA</h3>
+            <p>Estudio con IA: lectura de libros digitales y diagramas de conceptos generados. La niebla del temario se vuelve mapa.</p>
+            <ul class="features">
+              <li>Lectura con índice y edición</li>
+              <li>Diagramas de relaciones</li>
+              <li>Chat sobre el material</li>
+            </ul>
+            <div class="btn-row">
+              <a class="btn" href="estudia.html">Saber más</a>
+              <a class="btn btn-ghost" href="https://10.10.10.1:3005" target="_blank" rel="noopener">Acceder</a>
+            </div>
+          </div>
+          <div class="product-gallery">
+            <figure>
+              <img src="assets/estudia-lectura.png" alt="estudIA en modo lectura" width="1913" height="897" loading="lazy">
+              <figcaption>Lectura</figcaption>
+            </figure>
+            <figure>
+              <img src="assets/estudia-diagrama.png" alt="estudIA diagrama de conceptos" width="1599" height="773" loading="lazy">
+              <figcaption>Diagrama</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article class="product reveal-product">
+          <div class="product-copy">
+            <span class="badge">Producto propio</span>
+            <h3>MemoKards</h3>
+            <p>Tarjetas SM-2 en el bolsillo. Independiente o unida a estudIA: barajas desde el libro, repaso con gestos.</p>
+            <ul class="features">
+              <li>Algoritmo SM-2</li>
+              <li>Claro / oscuro</li>
+              <li>Sincronizable con estudIA</li>
+            </ul>
+            <a class="btn" href="https://github.com/nimelias/memocards" target="_blank" rel="noopener">Ver en GitHub</a>
+          </div>
+          <div class="product-gallery product-gallery--phones">
+            <figure>
+              <img src="assets/memokards-light.png" alt="MemoKards modo claro" width="1080" height="1920" loading="lazy">
+              <figcaption>Claro</figcaption>
+            </figure>
+            <figure>
+              <img src="assets/memokards-dark.png" alt="MemoKards modo oscuro" width="1080" height="1920" loading="lazy">
+              <figcaption>Oscuro</figcaption>
+            </figure>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="act act-5" id="entrega" data-iter="5" data-label="entrega">
+      <div class="act-inner">
+        <p class="kicker tape tape-xs"><span class="splitspan">Iteración 05 · nítido</span></p>
+        <div class="cta-panel">
+          <div>
+            <h2 class="tape tape-m"><span class="splitspan">Hablemos de tu siguiente iteración</span></h2>
+            <p>Cuéntanos el reto. Preparamos alcance, plazos y un camino de niebla a producción.</p>
+          </div>
+          <a class="btn btn-lg" href="mailto:contacto@zatikilabs.com">contacto@zatikilabs.com</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>© <span id="year"></span> Zatiki Labs · iterar es concretar</span>
+    <span>
+      <a href="index.html">Sitio</a>
+      ·
+      <a href="festival.html">Pulse Lab</a>
+    </span>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/SplitText.min.js"></script>
+  <script src="assets/iteraciones.js"></script>
+</body>
+</html>

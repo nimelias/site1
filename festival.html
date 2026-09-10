@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pulse Lab — Zatiki Labs</title>
+  <meta name="description" content="Demo estilo festival: fondo generativo, tipografía blur/glitch y line-up editorial.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/festival.css">
+</head>
+<body>
+  <div class="bg-gen" aria-hidden="true">
+    <canvas id="bg-canvas"></canvas>
+    <div class="bg-scan"></div>
+    <div class="bg-noise"></div>
+  </div>
+  <div class="bg-vignette" aria-hidden="true"></div>
+
+  <div class="festival-shell">
+    <header class="site-header">
+      <div class="bar bar--black">
+        <a class="logo" href="index.html">zati—ki <em>labs</em></a>
+        <nav class="nav-main" aria-label="Principal">
+          <a href="#lineup">Line-up</a>
+          <a href="#info">Info</a>
+          <a href="iteraciones.html">Iteraciones</a>
+          <a href="#entradas">Entradas</a>
+        </nav>
+      </div>
+      <div class="bar bar--white">
+        <div class="util-left" aria-label="Idioma">
+          <a href="#" aria-current="true">ES</a>
+          <a href="#">EU</a>
+          <a href="#">EN</a>
+        </div>
+        <div class="util-right">
+          <a href="#entradas">Venta de entradas</a>
+          <span aria-hidden="true">·</span>
+          <a href="#info">Información práctica</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="tickets-fixed">
+      <a class="estilo-2026 estilo-2026-m tickets" href="#entradas"><span class="splitspan">Tickets</span></a>
+    </div>
+
+    <div class="marquee-wrap" aria-hidden="true">
+      <div class="marquee">
+        <span>Pulse Lab 2026 — 12 y 13 de septiembre — Donostia</span>
+        <span>IA · Open Source · Sistemas críticos</span>
+        <span>Dev Ideas · estudIA · MemoKards en vivo</span>
+        <span>Pulse Lab 2026 — 12 y 13 de septiembre — Donostia</span>
+        <span>IA · Open Source · Sistemas críticos</span>
+        <span>Dev Ideas · estudIA · MemoKards en vivo</span>
+      </div>
+    </div>
+
+    <main class="stage">
+      <div class="hero-grid">
+        <div class="site-intro">
+          <ul>
+            <li><h5 class="estilo-2026 estilo-2026-xs"><span class="splitspan">1.ª edición demo</span></h5></li>
+            <li><h1 class="estilo-2026 estilo-2026-xs"><span class="splitspan">Pulse Lab</span></h1></li>
+            <li><h2 class="estilo-2026 estilo-2026-xs"><span class="splitspan">Donostia / San Sebastián</span></h2></li>
+            <li><h3 class="estilo-2026 estilo-2026-xs"><span class="splitspan">Zatiki Sessions</span></h3></li>
+            <li><h4 class="estilo-2026 estilo-2026-xs"><span class="splitspan">12—13 Sep 2026</span></h4></li>
+          </ul>
+        </div>
+
+        <div class="col-center">
+          <h2 class="estilo-2026 estilo-2026-l"><span class="splitspan">Pulse Lab 2026</span></h2>
+        </div>
+
+        <div class="col-right">
+          <h2 class="estilo-2026 estilo-2026-m"><span class="splitspan">Noche de producto</span></h2>
+        </div>
+      </div>
+
+      <section id="lineup" class="lineup-section lineup">
+        <h2 class="estilo-2026 estilo-2026-m"><span class="splitspan">Line-up</span></h2>
+
+        <ul class="lineup-columns">
+          <li>
+            <h2 class="estilo-2026 estilo-2026-l">
+              <a href="index.html#productos"><span class="splitspan">Dev Ideas</span></a>
+            </h2>
+            <span class="role">MCP · Kanban · Gantt</span>
+          </li>
+          <li>
+            <h2 class="estilo-2026 estilo-2026-l">
+              <a href="estudia.html"><span class="splitspan">estudIA</span></a>
+            </h2>
+            <span class="role">Lectura · Diagramas · Chat</span>
+          </li>
+          <li>
+            <h2 class="estilo-2026 estilo-2026-l">
+              <a href="https://github.com/nimelias/memocards" rel="noopener"><span class="splitspan">MemoKards</span></a>
+            </h2>
+            <span class="role">SM-2 · Móvil</span>
+          </li>
+          <li>
+            <h2 class="estilo-2026 estilo-2026-l"><span class="splitspan">Requisitos industriales</span></h2>
+            <span class="role">Track crítico</span>
+          </li>
+          <li>
+            <h2 class="estilo-2026 estilo-2026-l"><span class="splitspan">Agentes con contexto</span></h2>
+            <span class="role">IA aplicada</span>
+          </li>
+          <li>
+            <h2 class="estilo-2026 estilo-2026-l"><span class="splitspan">Observabilidad OSS</span></h2>
+            <span class="role">Producción</span>
+          </li>
+          <li>
+            <h2 class="estilo-2026 estilo-2026-l"><span class="splitspan">Integración legacy</span></h2>
+            <span class="role">Taller</span>
+          </li>
+          <li>
+            <h2 class="estilo-2026 estilo-2026-l"><span class="splitspan">Prototipado acelerado</span></h2>
+            <span class="role">Live coding</span>
+          </li>
+          <li>
+            <h2 class="estilo-2026 estilo-2026-l"><span class="splitspan">Seguridad en despliegue</span></h2>
+            <span class="role">Panel</span>
+          </li>
+          <li>
+            <h2 class="estilo-2026 estilo-2026-l"><span class="splitspan">Diagramas vivos</span></h2>
+            <span class="role">Visualización</span>
+          </li>
+          <li>
+            <h2 class="estilo-2026 estilo-2026-l"><span class="splitspan">Barajas desde libros</span></h2>
+            <span class="role">Pipeline IA</span>
+          </li>
+          <li>
+            <h2 class="estilo-2026 estilo-2026-l"><span class="splitspan">Open Source stack</span></h2>
+            <span class="role">Infra</span>
+          </li>
+          <li>
+            <h2 class="estilo-2026 estilo-2026-l"><span class="splitspan">Closing · Q&amp;A</span></h2>
+            <span class="role">Contacto directo</span>
+          </li>
+        </ul>
+      </section>
+
+      <section id="info" class="info-band">
+        <div class="info-cell">
+          <h2 class="estilo-2026 estilo-2026-xs"><span class="splitspan">Horarios</span></h2>
+          <p>Viernes 18:00—02:00 · Sábado 12:00—23:00. Puertas 45 min antes de la primera sesión.</p>
+        </div>
+        <div class="info-cell">
+          <h2 class="estilo-2026 estilo-2026-xs"><span class="splitspan">Acceso</span></h2>
+          <ul>
+            <li>Entrada con código QR</li>
+            <li>Acreditación en mostrador</li>
+            <li>Wi‑Fi para demos técnicas</li>
+          </ul>
+        </div>
+        <div class="info-cell">
+          <h2 class="estilo-2026 estilo-2026-xs"><span class="splitspan">Nota</span></h2>
+          <p>Demo visual: fondo generativo (canvas), tipografía con blur/GSAP y ruido. Contenido ficticio.</p>
+        </div>
+      </section>
+
+      <section id="entradas" class="cta-block">
+        <div>
+          <h2 class="estilo-2026 estilo-2026-m"><span class="splitspan">Reserva tu plaza</span></h2>
+          <p style="margin-top:0.75rem;font-family:ui-monospace,sans-serif;font-size:0.7rem;text-transform:none;font-weight:400;color:#ddd;max-width:40ch">contacto@zatikilabs.com — proyectos reales en Zatiki Labs.</p>
+        </div>
+        <div class="cta-action">
+          <a class="btn-ticket estilo-2026 estilo-2026-xs" href="mailto:contacto@zatikilabs.com"><span class="splitspan">Tickets</span></a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>© <span id="year"></span> Zatiki Labs</span>
+      <a href="index.html">Volver al sitio principal</a>
+    </footer>
+
+    <p class="demo-note">Estilo inspirado en <a href="https://dantz.eu/festival/" rel="noopener">dantz.eu/festival</a>. Fondo generativo + GSAP. Uso demostrativo.</p>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/SplitText.min.js"></script>
+  <script src="assets/festival.js"></script>
+</body>
+</html>

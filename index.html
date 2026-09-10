@@ -1057,12 +1057,13 @@
       .product-visual--teaser {
         display: grid;
         place-items: center;
-        min-height: 220px;
+        min-height: 280px;
         padding: 28px;
         background:
-          linear-gradient(145deg, oklch(28% 0.05 235), oklch(22% 0.05 200));
+          linear-gradient(160deg, oklch(32% 0.04 230), oklch(22% 0.05 210));
         color: oklch(96% 0.01 230);
         text-align: center;
+        text-decoration: none;
       }
 
       .product-visual--teaser strong {
@@ -1073,8 +1074,77 @@
       }
 
       .product-visual--teaser span {
-        opacity: 0.8;
+        opacity: 0.85;
         font-size: 0.95rem;
+      }
+
+      .product-visual--sheets {
+        position: relative;
+        min-height: 300px;
+        background:
+          linear-gradient(155deg, oklch(28% 0.05 235), oklch(20% 0.04 210));
+        overflow: hidden;
+      }
+
+      .product-visual--sheets .sheet-mini {
+        position: absolute;
+        width: min(72%, 280px);
+        background: oklch(98% 0.005 230);
+        color: oklch(24% 0.03 240);
+        border: 1px solid oklch(80% 0.02 230);
+        border-radius: 8px;
+        padding: 14px 16px;
+        font-size: 0.72rem;
+        line-height: 1.4;
+        box-shadow: 0 16px 36px oklch(10% 0.04 240 / 0.4);
+        text-align: left;
+      }
+
+      .product-visual--sheets .sheet-mini--a {
+        right: 18%;
+        top: 14%;
+        transform: rotate(-4deg);
+        opacity: 0.92;
+      }
+
+      .product-visual--sheets .sheet-mini--b {
+        right: 8%;
+        bottom: 12%;
+        transform: rotate(2.5deg);
+        z-index: 1;
+      }
+
+      .product-visual--sheets .sheet-mini b {
+        display: block;
+        font-family: var(--font-display);
+        font-size: 0.9rem;
+        margin-bottom: 6px;
+      }
+
+      .product-visual--sheets .sheet-label {
+        position: absolute;
+        left: 16px;
+        bottom: 14px;
+        z-index: 2;
+        font-size: 0.78rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: oklch(92% 0.02 230);
+        background: oklch(18% 0.04 220 / 0.72);
+        border: 1px solid oklch(70% 0.08 175 / 0.35);
+        border-radius: 999px;
+        padding: 6px 12px;
+      }
+
+      .section-sub a {
+        color: var(--brand);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+
+      #examenuned {
+        scroll-margin-top: 88px;
       }
 
       .cta {
@@ -1092,13 +1162,20 @@
       }
 
       .reveal {
-        animation: fade-up linear both;
-        animation-timeline: view();
-        animation-range: entry 0% cover 30%;
+        /* Evitar opacity:0 + fill both: en algunos motores con view() el bloque queda invisible */
+        animation: fade-up 0.7s var(--ease, cubic-bezier(0.22, 1, 0.36, 1)) both;
+      }
+
+      @supports (animation-timeline: view()) {
+        .reveal {
+          animation: fade-up linear forwards;
+          animation-timeline: view();
+          animation-range: entry 0% cover 25%;
+        }
       }
 
       @keyframes fade-up {
-        from { opacity: 0; transform: translateY(24px); }
+        from { opacity: 0.4; transform: translateY(18px); }
         to { opacity: 1; transform: translateY(0); }
       }
     }
@@ -1225,7 +1302,7 @@
 
     <section id="productos" class="wrap reveal">
       <h2 class="section-title">Productos</h2>
-      <p class="section-sub">Productos propios que demuestran nuestra capacidad de llevar ideas complejas a producción.</p>
+      <p class="section-sub">Productos propios que demuestran nuestra capacidad de llevar ideas complejas a producción. Incluye <a href="#examenuned">Exámenes UNED</a>.</p>
       <div class="product-showcase">
         <article class="product-card">
           <div class="product-info">
@@ -1271,6 +1348,7 @@
             <div class="hero-actions">
               <a class="btn btn-primary" href="estudia.html">Saber más</a>
               <a class="btn btn-ghost" href="https://10.10.10.1:3005" target="_blank" rel="noopener">Acceder</a>
+              <a class="btn btn-ghost" href="#examenuned">Exámenes UNED</a>
             </div>
           </div>
           <div class="product-visual product-visual--gallery">
@@ -1297,10 +1375,10 @@
           </div>
         </article>
 
-        <article class="product-card">
+        <article id="examenuned" class="product-card">
           <div class="product-info">
             <span class="product-badge">Byproduct · estudIA</span>
-            <h3>ExamenUNED</h3>
+            <h3>Exámenes UNED</h3>
             <p>
               Banco comercial de exámenes UNED parseados: convocatorias estructuradas para practicar
               tipo test sin pelearte con el PDF. Lista de espera y suscripción para estudiantes.
@@ -1316,11 +1394,16 @@
               <a class="btn btn-ghost" href="uned.html#suscribirse">Lista de espera</a>
             </div>
           </div>
-          <a class="product-visual product-visual--teaser" href="uned.html">
-            <div>
-              <strong>ExamenUNED</strong>
-              <span>Convocatorias parseadas · suscripción estudiantes</span>
+          <a class="product-visual product-visual--sheets" href="uned.html" aria-label="Abrir landing Exámenes UNED">
+            <div class="sheet-mini sheet-mini--a" aria-hidden="true">
+              <b>Psicología · Sep 2024</b>
+              Según Piaget, la etapa de las operaciones formales…
             </div>
+            <div class="sheet-mini sheet-mini--b" aria-hidden="true">
+              <b>Informática · Jun 2025</b>
+              La complejidad media de búsqueda en un árbol AVL es…
+            </div>
+            <span class="sheet-label">ExamenUNED</span>
           </a>
         </article>
 
